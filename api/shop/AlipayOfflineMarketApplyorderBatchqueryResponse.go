@@ -6,11 +6,11 @@ import (
 
 type AlipayOfflineMarketApplyorderBatchqueryResponse struct {
 	api.AlipayResponse
-	PageSize      int                     `json:"page_size,string"`     // 每页记录数
-	CurrentPageNo int                     `json:"total_page_no,string"` // 当前页码
-	TotalPageNo   int                     `json:"total_page_no,string"` // 总页码数目
-	TotalItems    int                     `json:"total_items,string"`   // 总记录数
-	BizOrderInfos []BizOrderQueryResponse `json:"biz_order_infos"`      // 支付宝操作流水信息列表
+	PageSize      int                     `json:"page_size,string"`       // 每页记录数
+	CurrentPageNo int                     `json:"current_page_no,string"` // 当前页码
+	TotalPageNo   int                     `json:"total_page_no,string"`   // 总页码数目
+	TotalItems    int                     `json:"total_items,string"`     // 总记录数
+	BizOrderInfos []BizOrderQueryResponse `json:"biz_order_infos"`        // 支付宝操作流水信息列表
 }
 
 type BizOrderQueryResponse struct {

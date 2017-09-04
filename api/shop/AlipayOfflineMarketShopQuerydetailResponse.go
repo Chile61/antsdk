@@ -14,7 +14,7 @@ type AlipayOfflineMarketShopQuerydetailResponse struct {
 	BrandName                  string  `json:"brand_name"`                   // 品牌名，不填写则默认为“其它品牌”。
 	BrandLogo                  string  `json:"brand_logo"`                   // 品牌LOGO; 图片ID，不填写则默认为门店首图main_image。
 	MainShopName               string  `json:"main_shop_name"`               // 主门店名 比如：肯德基；主店名里不要包含分店名，如“万塘路店”。主店名长度不能超过20个字符。
-	BranchShopName             string  `json:"main_shop_name"`               // 分店名称，比如：万塘路店，与主门店名合并在客户端显示为：肯德基(万塘路店)。
+	BranchShopName             string  `json:"branch_shop_name"`             // 分店名称，比如：万塘路店，与主门店名合并在客户端显示为：肯德基(万塘路店)。
 	ProvinceCode               string  `json:"province_code"`                // 省份编码，国标码，详见国家统计局数据 点此下载(http://aopsdkdownload.cn-hangzhou.alipay-pub.aliyun-inc.com/doc/2016.xls?spm=a219a.7395905.0.0.SN6mhh&file=2016.xls)。
 	CityCode                   string  `json:"city_code"`                    // 城市编码，国标码，详见国家统计局数据 点此下载(http://aopsdkdownload.cn-hangzhou.alipay-pub.aliyun-inc.com/doc/2016.xls?spm=a219a.7395905.0.0.SN6mhh&file=2016.xls)。
 	DistrictCode               string  `json:"district_code"`                // 区县编码，国标码，详见国家统计局数据 点此下载(http://aopsdkdownload.cn-hangzhou.alipay-pub.aliyun-inc.com/doc/2016.xls?spm=a219a.7395905.0.0.SN6mhh&file=2016.xls)。
