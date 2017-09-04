@@ -1,8 +1,8 @@
 package open
 
 import (
-  "github.com/LayGit/antsdk/api"
-  "github.com/LayGit/antsdk/utils"
+  "github.com/vanishs/antsdk/api"
+  "github.com/vanishs/antsdk/utils"
 )
 
 // 带参推广二维码接口

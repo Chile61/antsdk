@@ -1,8 +1,8 @@
 package trade
 
 import (
-  "github.com/LayGit/antsdk/api"
-  "github.com/LayGit/antsdk/utils"
+  "github.com/vanishs/antsdk/api"
+  "github.com/vanishs/antsdk/utils"
 )
 
 // 统一收单线下交易查询

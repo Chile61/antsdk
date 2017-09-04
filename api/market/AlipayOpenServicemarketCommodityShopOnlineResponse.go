@@ -1,7 +1,7 @@
 package market
 
 import (
-  "github.com/LayGit/antsdk/api"
+  "github.com/vanishs/antsdk/api"
 )
 
 type AlipayOpenServicemarketCommodityShopOnlineResponse struct {

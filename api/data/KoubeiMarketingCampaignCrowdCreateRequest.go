@@ -1,8 +1,8 @@
 package data
 
 import (
-  "github.com/LayGit/antsdk/api"
-  "github.com/LayGit/antsdk/utils"
+  "github.com/vanishs/antsdk/api"
+  "github.com/vanishs/antsdk/utils"
 )
 
 // 营销活动人群组规则创建接口

@@ -1,8 +1,8 @@
 package risk
 
 import (
-  "github.com/LayGit/antsdk/api"
-  "github.com/LayGit/antsdk/utils"
+  "github.com/vanishs/antsdk/api"
+  "github.com/vanishs/antsdk/utils"
 )
 
 // 蚁盾风险评分服务上数版

@@ -1,7 +1,7 @@
 package shop
 
 import (
-  "github.com/LayGit/antsdk/api"
+  "github.com/vanishs/antsdk/api"
 )
 
 type AlipayOfflineMarketShopCategoryQueryResponse struct {

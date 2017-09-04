@@ -1,7 +1,7 @@
 package zhima
 
 import (
-  "github.com/LayGit/antsdk/api"
+  "github.com/vanishs/antsdk/api"
 )
 
 type ZhimaCustomerCertificationInitializeResponse struct {
