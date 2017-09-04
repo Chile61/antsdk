@@ -139,10 +139,10 @@ func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, e
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded;param=value")
 
 	resp, err := client.Do(req)
-	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	return ioutil.ReadAll(resp.Body)
 }
@@ -177,10 +177,10 @@ func (c *Client) postFileRequest(reqURL string, params map[string]string, filePa
 	req.Header.Set("Content-Type", w.FormDataContentType())
 	var client http.Client
 	resp, err := client.Do(req)
-	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	return ioutil.ReadAll(resp.Body)
 }
