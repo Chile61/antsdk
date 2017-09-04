@@ -1,9 +1,9 @@
 package subway
 
 import (
-  "github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/api"
 )
 
 type AlipayCommerceCityfacilitatorVoucherRefundResponse struct {
-  api.AlipayResponse
+	api.AlipayResponse
 }

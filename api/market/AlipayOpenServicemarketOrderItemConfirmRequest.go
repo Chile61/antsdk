@@ -1,60 +1,60 @@
 package market
 
 import (
-  "github.com/vanishs/antsdk/api"
-  "github.com/vanishs/antsdk/utils"
+	"github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/utils"
 )
 
 // 服务商代商家确认实施完成
 // 此接口需商家授权服务商应用权限后，服务商可代商家进行实施确认完成动作
 type AlipayOpenServicemarketOrderItemConfirmRequest struct {
-  api.IAlipayRequest
-  TerminalType      string                                                    `json:"terminal_type"`
-  TerminalInfo      string                                                    `json:"terminal_info"`
-  ProdCode          string                                                    `json:"prod_code"`
-  NotifyUrl         string                                                    `json:"notify_url"`
-  ReturnUrl         string                                                    `json:"return_url"`
-  BizContent        AlipayOpenServicemarketOrderItemConfirmRequestBizContent  `json:"biz_content"`
+	api.IAlipayRequest
+	TerminalType string                                                   `json:"terminal_type"`
+	TerminalInfo string                                                   `json:"terminal_info"`
+	ProdCode     string                                                   `json:"prod_code"`
+	NotifyURL    string                                                   `json:"notify_url"`
+	ReturnURL    string                                                   `json:"return_url"`
+	BizContent   AlipayOpenServicemarketOrderItemConfirmRequestBizContent `json:"biz_content"`
 }
 
 type AlipayOpenServicemarketOrderItemConfirmRequestBizContent struct {
-  CommodityOrderId  string `json:"commodity_order_id"`  // 商品订单ID
-  ShopId            string `json:"shop_id"`             // 商家订购服务选择的某一门店的ID
+	CommodityOrderId string `json:"commodity_order_id"` // 商品订单ID
+	ShopId           string `json:"shop_id"`            // 商家订购服务选择的某一门店的ID
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetApiMethodName() string {
-  return "alipay.open.servicemarket.order.item.confirm"
+	return "alipay.open.servicemarket.order.item.confirm"
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetApiVersion() string {
-  return "1.0"
+	return "1.0"
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetTerminalType() string {
-  return this.TerminalType
+	return this.TerminalType
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetTerminalInfo() string {
-  return this.TerminalInfo
+	return this.TerminalInfo
 }
 
-func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetNotifyUrl() string {
-  return this.NotifyUrl
+func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetNotifyURL() string {
+	return this.NotifyURL
 }
 
-func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetReturnUrl() string {
-  return this.ReturnUrl
+func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetReturnURL() string {
+	return this.ReturnURL
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetProdCode() string {
-  return this.ProdCode
+	return this.ProdCode
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) IsNeedEncrypt() bool {
-  return false
+	return false
 }
 
 func (this *AlipayOpenServicemarketOrderItemConfirmRequest) GetTextParams() *utils.AlipayHashMap {
-  txtParams := utils.NewAlipayHashMap()
-  return txtParams
+	txtParams := utils.NewAlipayHashMap()
+	return txtParams
 }

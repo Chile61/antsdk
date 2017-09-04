@@ -1,38 +1,44 @@
 package utils
 
 import (
-  "fmt"
+	"fmt"
 )
 
+// AlipayHashMap 参数结构
 type AlipayHashMap struct {
-  mMap map[string]string
-  Length int
+	mMap   map[string]string
+	Length int
 }
 
+// NewAlipayHashMap 生成空的参数结构
 func NewAlipayHashMap() *AlipayHashMap {
-  return &AlipayHashMap{ mMap: make(map[string]string), Length: 0 }
+	return &AlipayHashMap{mMap: make(map[string]string), Length: 0}
 }
 
-func (this *AlipayHashMap) Put(key string, value interface{}) {
-  var strValue string
-  if value == nil {
-    strValue = ""
-  } else {
-    strValue = fmt.Sprintf("%v", value)
-  }
+// Put Put
+func (hm *AlipayHashMap) Put(key string, value interface{}) {
+	var strValue string
+	if value == nil {
+		strValue = ""
+	} else {
+		strValue = fmt.Sprintf("%v", value)
+	}
 
-  this.mMap[key] = strValue
-  this.Length = len(this.mMap)
+	hm.mMap[key] = strValue
+	hm.Length = len(hm.mMap)
 }
 
-func (this *AlipayHashMap) Get(key string) string {
-  return this.mMap[key]
+// Get Get
+func (hm *AlipayHashMap) Get(key string) string {
+	return hm.mMap[key]
 }
 
-func (this *AlipayHashMap) Remove(key string) {
-  delete(this.mMap, key)
+// Remove Remove
+func (hm *AlipayHashMap) Remove(key string) {
+	delete(hm.mMap, key)
 }
 
-func (this *AlipayHashMap) GetMap() map[string]string {
-  return this.mMap
+// GetMap GetMap
+func (hm *AlipayHashMap) GetMap() map[string]string {
+	return hm.mMap
 }

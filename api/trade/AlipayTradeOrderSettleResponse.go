@@ -1,10 +1,10 @@
 package trade
 
 import (
-  "github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/api"
 )
 
 type AlipayTradeOrderSettleResponse struct {
-  api.AlipayResponse
-  TradeNo string `json:"trade_no"` //支付宝交易号
+	api.AlipayResponse
+	TradeNo string `json:"trade_no"` //支付宝交易号
 }

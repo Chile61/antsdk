@@ -1,10 +1,10 @@
 package coupon
 
 import (
-  "github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/api"
 )
 
 type KoubeiMarketingToolPointsUpdateResponse struct {
-  api.AlipayResponse
-  PointLogNo string `json:"point_log_no"` // 集点变更流水号
+	api.AlipayResponse
+	PointLogNo string `json:"point_log_no"` // 集点变更流水号
 }

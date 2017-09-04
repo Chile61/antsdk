@@ -1,37 +1,53 @@
 package alipay
 
 const (
-  CONST_SIGN_TYPE                      = "sign_type"
-  CONST_SIGN_TYPE_RSA                  = "RSA"
-  CONST_SIGN_TYPE_RSA2                 = "RSA2"
-  CONST_SIGN_ALGORITHMS                = "SHA1WithRSA";
-  CONST_SIGN_SHA256RSA_ALGORITHMS      = "SHA256WithRSA";
-  CONST_ENCRYPT_TYPE_AES               = "AES";
-  CONST_APP_ID                         = "app_id";
-  CONST_FORMAT                         = "format";
-  CONST_METHOD                         = "method";
-  CONST_TIMESTAMP                      = "timestamp";
-  CONST_VERSION                        = "version";
-  CONST_SIGN                           = "sign";
-  CONST_ALIPAY_SDK                     = "alipay_sdk";
-  CONST_ACCESS_TOKEN                   = "auth_token";
-  CONST_APP_AUTH_TOKEN                 = "app_auth_token";
-  CONST_TERMINAL_TYPE                  = "terminal_type";
-  CONST_TERMINAL_INFO                  = "terminal_info";
-  CONST_CHARSET                        = "charset";
-  CONST_NOTIFY_URL                     = "notify_url";
-  CONST_RETURN_URL                     = "return_url";
-  CONST_ENCRYPT_TYPE                   = "encrypt_type";
-  CONST_BIZ_CONTENT_KEY                = "biz_content";
-  CONST_DATE_TIME_FORMAT               = "yyyy-MM-dd HH:mm:ss";
-  CONST_DATE_TIMEZONE                  = "GMT+8";
-  CONST_CHARSET_UTF8                   = "UTF-8";
-  CONST_CHARSET_GBK                    = "GBK";
-  CONST_FORMAT_JSON                    = "json";
-  CONST_FORMAT_XML                     = "xml";
-  CONST_SDK_VERSION                    = "alipay-sdk-go";
-  CONST_PROD_CODE                      = "prod_code";
-  CONST_ERROR_RESPONSE                 = "error_response";
-  CONST_RESPONSE_SUFFIX                = "_response";
-  CONST_RESPONSE_XML_ENCRYPT_NODE_NAME = "response_encrypted";
+
+	// ConstSignTypeRsa RSA签名算法，用于constSignTypeKey(当前默认值)
+	ConstSignTypeRsa = "RSA"
+
+	// ConstSignTypeRsa2 RSA2签名算法，用于constSignTypeKey
+	ConstSignTypeRsa2 = "RSA2"
+
+	// ConstCharsetUTF8 utf8字符编码格式，用于constCharsetKey(当前默认值)
+	ConstCharsetUTF8 = "UTF-8"
+	// ConstCharsetGBK utf8字符编码格式，用于constCharsetKey
+	ConstCharsetGBK = "GBK"
+
+	// ConstFormatJSON xml编码格式用于constFormatKey(当前默认值)
+	ConstFormatJSON = "json"
+	// ConstFormatXML xml编码格式用于constFormatKey(当前不支持)
+	ConstFormatXML = "xml"
+
+	// ConstSDKversion SDK版本,用于constVersionKey
+	ConstSDKversion = "alipay-sdk-go"
+
+	// ConstEncryptTypeAES 加密类型 目前只支持AES
+	ConstEncryptTypeAES = "AES"
+
+	constSignTypeKey     = "sign_type"
+	constAppIDKey        = "app_id"
+	constFormatKey       = "format"
+	constMethodKey       = "method"
+	constTimestampKey    = "timestamp"
+	constVersionKey      = "version"
+	constSignKey         = "sign"
+	constAlipaySDKKey    = "alipay_sdk"
+	constAccessTokenKey  = "auth_token"
+	constAppAuthTokenKey = "app_auth_token"
+	constTerminalTypeKey = "terminal_type"
+	constTerminalInfoKey = "terminal_info"
+	constCharsetKey      = "charset"
+	constNotifyURLKey    = "notify_url"
+	constReturnURLKey    = "return_url"
+	constEncryptTypeKey  = "encrypt_type"
+	constBizContentKey   = "biz_content"
+	constProdCodeKey     = "prod_code"
+
+	// ConstSignAlgorithms       = "SHA1WithRSA"
+	// ConstSignAlgorithmsSHA256 = "SHA256WithRSA"
+	// ConstDataTimeFormat       = "yyyy-MM-dd HH:mm:ss"
+	// ConstDataTimezone         = "GMT+8"
+	// ConstErrorRespone         = "error_response"
+	// ConstResponeSuffix        = "_response"
+	// ConstResponeXMLencryptNodeName = "response_encrypted"
 )

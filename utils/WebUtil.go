@@ -1,28 +1,28 @@
 package utils
 
 import (
-  "net/url"
+	"net/url"
 )
 
-
+// BuildQuery BuildQuery
 func BuildQuery(params map[string]string) string {
-  if params == nil {
-    return ""
-  }
+	if params == nil {
+		return ""
+	}
 
-  query := NewStringBuilder()
-  hasParam := false
+	query := NewStringBuilder()
+	hasParam := false
 
-  for k, v := range params {
-    if v != "" {
-      if hasParam {
-        query.Append("&")
-      } else {
-        hasParam = true
-      }
+	for k, v := range params {
+		if v != "" {
+			if hasParam {
+				query.Append("&")
+			} else {
+				hasParam = true
+			}
 
-      query.Append(k).Append("=").Append(url.QueryEscape(v))
-    }
-  }
-  return query.ToString()
+			query.Append(k).Append("=").Append(url.QueryEscape(v))
+		}
+	}
+	return query.ToString()
 }

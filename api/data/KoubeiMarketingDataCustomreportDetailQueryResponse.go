@@ -1,10 +1,10 @@
 package data
 
 import (
-  "github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/api"
 )
 
 type KoubeiMarketingDataCustomreportDetailQueryResponse struct {
-  api.AlipayResponse
-  ReportConditionInfo CustomReportCondition `json:"report_condition_info"`  // 自定义报表规则条件的详细信息
+	api.AlipayResponse
+	ReportConditionInfo CustomReportCondition `json:"report_condition_info"` // 自定义报表规则条件的详细信息
 }

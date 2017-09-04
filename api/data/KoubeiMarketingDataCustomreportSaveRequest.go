@@ -1,59 +1,59 @@
 package data
 
 import (
-  "github.com/vanishs/antsdk/api"
-  "github.com/vanishs/antsdk/utils"
+	"github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/utils"
 )
 
 // 自定义报表规则创建及更新接口
 type KoubeiMarketingDataCustomreportSaveRequest struct {
-  api.IAlipayRequest
-  TerminalType        string                                                `json:"terminal_type"`
-  TerminalInfo        string                                                `json:"terminal_info"`
-  ProdCode            string                                                `json:"prod_code"`
-  NotifyUrl           string                                                `json:"notify_url"`
-  ReturnUrl           string                                                `json:"return_url"`
-  BizContent          KoubeiMarketingDataCustomreportSaveRequestBizContent  `json:"biz_content"`
+	api.IAlipayRequest
+	TerminalType string                                               `json:"terminal_type"`
+	TerminalInfo string                                               `json:"terminal_info"`
+	ProdCode     string                                               `json:"prod_code"`
+	NotifyURL    string                                               `json:"notify_url"`
+	ReturnURL    string                                               `json:"return_url"`
+	BizContent   KoubeiMarketingDataCustomreportSaveRequestBizContent `json:"biz_content"`
 }
 
 type KoubeiMarketingDataCustomreportSaveRequestBizContent struct {
-  ReportConditionInfo CustomReportCondition `json:"report_condition_info"`
+	ReportConditionInfo CustomReportCondition `json:"report_condition_info"`
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) GetApiMethodName() string {
-  return "koubei.marketing.data.customreport.save"
+	return "koubei.marketing.data.customreport.save"
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) GetApiVersion() string {
-  return "1.0"
+	return "1.0"
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) GetTerminalType() string {
-  return this.TerminalType
+	return this.TerminalType
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) GetTerminalInfo() string {
-  return this.TerminalInfo
+	return this.TerminalInfo
 }
 
-func (this *KoubeiMarketingDataCustomreportSaveRequest) GetNotifyUrl() string {
-  return this.NotifyUrl
+func (this *KoubeiMarketingDataCustomreportSaveRequest) GetNotifyURL() string {
+	return this.NotifyURL
 }
 
-func (this *KoubeiMarketingDataCustomreportSaveRequest) GetReturnUrl() string {
-  return this.ReturnUrl
+func (this *KoubeiMarketingDataCustomreportSaveRequest) GetReturnURL() string {
+	return this.ReturnURL
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) GetProdCode() string {
-  return this.ProdCode
+	return this.ProdCode
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) IsNeedEncrypt() bool {
-  return false
+	return false
 }
 
 func (this *KoubeiMarketingDataCustomreportSaveRequest) GetTextParams() *utils.AlipayHashMap {
-  txtParams := utils.NewAlipayHashMap()
-  txtParams.Put("biz_content", utils.ToJson(this.BizContent))
-  return txtParams
+	txtParams := utils.NewAlipayHashMap()
+	txtParams.Put("biz_content", utils.ToJSON(this.BizContent))
+	return txtParams
 }

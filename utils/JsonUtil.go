@@ -1,10 +1,11 @@
 package utils
 
 import (
-  "encoding/json"
+	"encoding/json"
 )
 
-func ToJson(i interface{}) string {
-  b, _ := json.Marshal(i)
-  return string(b)
+// ToJSON JSON
+func ToJSON(i interface{}) string {
+	b, _ := json.Marshal(i)
+	return string(b)
 }

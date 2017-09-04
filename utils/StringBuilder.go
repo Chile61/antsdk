@@ -1,23 +1,27 @@
 package utils
 
 import (
-  "fmt"
-  "bytes"
+	"bytes"
+	"fmt"
 )
 
+// StringBuilder StringBuilder
 type StringBuilder struct {
-    buf bytes.Buffer
+	buf bytes.Buffer
 }
 
+// NewStringBuilder NewStringBuilder
 func NewStringBuilder() *StringBuilder {
-  return &StringBuilder{ buf: bytes.Buffer{} }
+	return &StringBuilder{buf: bytes.Buffer{}}
 }
 
-func (this *StringBuilder) Append(obj interface{}) *StringBuilder {
-  this.buf.WriteString(fmt.Sprintf("%v", obj))
-  return this
+// Append Append
+func (c *StringBuilder) Append(obj interface{}) *StringBuilder {
+	c.buf.WriteString(fmt.Sprintf("%v", obj))
+	return c
 }
 
-func (this *StringBuilder) ToString() string {
-  return this.buf.String()
+// ToString ToString
+func (c *StringBuilder) ToString() string {
+	return c.buf.String()
 }
