@@ -19,12 +19,12 @@ import (
 func main() {
     client := alipay.NewDefaultClient(alipay.ConstProdGateway, "商户AppId", "商户密钥", "支付宝公钥", alipay.ConstSignTypeRsaRSA)
 
-	request := &util.AlipayUserInfoAuthRequest{}
+    request := &util.AlipayUserInfoAuthRequest{}
 
-	request.Scopes = []string{"auth_user", "auth_base"}
-	request.State = "test"
+    request.Scopes = []string{"auth_user", "auth_base"}
+    request.State = "test"
 
-	var response util.AlipayUserInfoAuthResponse
+    var response util.AlipayUserInfoAuthResponse
 
     err := client.Execute(request, &response)
     if err != nil {
@@ -45,7 +45,7 @@ func main() {
 - [x] [会员 API](#会员-api)
 - [ ] [店铺 API](#店铺-api)
 - [ ] [营销 API](#营销-api)
-- [ ] [服务窗 API](#服务窗-api)
+- [ ] [生活号 API](#生活号-api)
 - [ ] [芝麻信用 API](#芝麻信用-api)
 - [x] [工具类 API](#工具类-api)
 - [ ] [风险控制 API](#风险控制-api)
@@ -53,10 +53,15 @@ func main() {
 - [ ] [账务 API](#账务-api)
 - [ ] [生活缴费 API](#生活缴费-api)
 - [ ] [车主服务 API](#车主服务-api)
+- [ ] [社区物业 API](#社区物业-api)
 - [ ] [数据服务 API](#数据服务-api)
+- [ ] [教育服务 API](#教育服务-api)
 - [ ] [卡券 API](#卡券-api)
 - [ ] [广告 API](#广告-api)
+- [ ] [资金 API](#资金-api)
 - [ ] [地铁购票 API](#地铁购票-api)
+- [ ] [历史 API](#历史-api)
+- [ ] [电子发票 API](#电子发票-api)
 - [ ] [理财 API](#理财-api)
 
 ## 工具类 API
