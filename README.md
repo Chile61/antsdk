@@ -1,6 +1,6 @@
 # antsdk
 蚂蚁金服(支付宝)开放平台 go-sdk
-支付宝API文档:[传送门](https://doc.open.alipay.com/doc2/apiList?docType=4)
+支付宝API文档:[传送门](https://docs.open.alipay.com/api)
 
 ## 安装
 ```bash
@@ -18,12 +18,14 @@ import (
 
 func main() {
     client := alipay.NewDefaultClient(alipay.ConstProdGateway, "商户AppId", "商户密钥", "支付宝公钥", alipay.ConstSignTypeRsaRSA)
-    // 创建请求
-    request := &trade.AlipayTradeQueryRequest{}
-    // 设置参数
-    request.BizContent.OutTradeNo = "L123456"
-    // 请求响应
-    var response trade.AlipayTradeQueryResponse
+
+	request := &util.AlipayUserInfoAuthRequest{}
+
+	request.Scopes = []string{"auth_user", "auth_base"}
+	request.State = "test"
+
+	var response util.AlipayUserInfoAuthResponse
+
     err := client.Execute(request, &response)
     if err != nil {
         // 错误处理
