@@ -31,28 +31,10 @@ type Client struct {
 	charset         string
 }
 
-// SignType SignType
-type SignType int
-
-const (
-	// RSA RSA
-	RSA SignType = iota
-	// RSA2 RSA2
-	RSA2
-)
-
 // NewDefaultClient 创建一个默认的Client，可以构建相关struct后调用Execute执行该功能
-func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, tp SignType) *Client {
-	var signType string
-	switch tp {
-	case RSA:
-		signType = ConstSignTypeRsa
-	case RSA2:
-		signType = ConstSignTypeRsa2
-	default:
-		signType = ConstSignTypeRsa2
-	}
-	utils.SetHash(signType)
+func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, signtype string) *Client {
+
+	utils.SetHash(signtype)
 
 	return &Client{
 		serverURL:       serverURL,
@@ -60,7 +42,7 @@ func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, tp S
 		privateKey:      privateKey,
 		alipayPublicKey: alipayPublicKey,
 		format:          ConstFormatJSON,
-		signType:        ConstSignTypeRsa,
+		signType:        signtype,
 		encryptType:     ConstEncryptTypeAES,
 	}
 }
