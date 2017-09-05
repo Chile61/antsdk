@@ -23,11 +23,11 @@ type KoubeiMarketingCampaignCrowdCountRequestBizContent struct {
 	Dimensions   string `json:"dimensions"`     // 画像分析的维度，目前支持:["pam_age","pam_gender","pam_constellation","pam_hometown_code","pam_city_code","pam_occupation","pam_consume_level","pam_have_baby"]，以koubei.marketing.campaign.tags.query接口返回的dimensions为准，各个维度标签的详细信息参见附件，标签信息
 }
 
-func (this *KoubeiMarketingCampaignCrowdCountRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignCrowdCountRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.crowd.count"
 }
 
-func (this *KoubeiMarketingCampaignCrowdCountRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignCrowdCountRequest) GetAPIversion() string {
 	return "1.0"
 }
 

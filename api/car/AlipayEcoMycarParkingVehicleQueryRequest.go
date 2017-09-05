@@ -21,11 +21,11 @@ type AlipayEcoMycarParkingVehicleQueryRequestBizContent struct {
 	CarId string `json:"car_id"` // 支付宝用户车辆ID，系统唯一。（该参数会在停车平台用户点击查询缴费，跳转到ISV停车缴费查询页面时，从请求中传递）
 }
 
-func (this *AlipayEcoMycarParkingVehicleQueryRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingVehicleQueryRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.vehicle.query"
 }
 
-func (this *AlipayEcoMycarParkingVehicleQueryRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingVehicleQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

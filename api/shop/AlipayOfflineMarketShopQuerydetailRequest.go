@@ -22,11 +22,11 @@ type AlipayOfflineMarketShopQuerydetailRequestBizContent struct {
 	OPRole string `json:"op_role"` // 服务商及商户调用情况下务必传递。操作人角色，默认商户操作:MERCHANT；服务商操作：PROVIDER；ISV: 不需要填写
 }
 
-func (this *AlipayOfflineMarketShopQuerydetailRequest) GetApiMethodName() string {
+func (this *AlipayOfflineMarketShopQuerydetailRequest) GetAPImethodName() string {
 	return "alipay.offline.market.shop.querydetail"
 }
 
-func (this *AlipayOfflineMarketShopQuerydetailRequest) GetApiVersion() string {
+func (this *AlipayOfflineMarketShopQuerydetailRequest) GetAPIversion() string {
 	return "1.0"
 }
 

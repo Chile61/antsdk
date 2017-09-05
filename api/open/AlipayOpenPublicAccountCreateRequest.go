@@ -26,11 +26,11 @@ type AlipayOpenPublicAccountCreateRequestBizContent struct {
 	Remark        string `json:"remark"`          // 备注信息，开发者可以通过该字段纪录其他的额外信息
 }
 
-func (this *AlipayOpenPublicAccountCreateRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicAccountCreateRequest) GetAPImethodName() string {
 	return "alipay.open.public.account.create"
 }
 
-func (this *AlipayOpenPublicAccountCreateRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicAccountCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

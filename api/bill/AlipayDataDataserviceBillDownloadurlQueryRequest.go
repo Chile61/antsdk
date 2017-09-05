@@ -20,11 +20,11 @@ type AlipayDataDataserviceBillDownloadurlQueryRequestBizContent struct {
 	BillDate string `json:"bill_date"` // 账单时间：日账单格式为yyyy-MM-dd，月账单格式为yyyy-MM。
 }
 
-func (this *AlipayDataDataserviceBillDownloadurlQueryRequest) GetApiMethodName() string {
+func (this *AlipayDataDataserviceBillDownloadurlQueryRequest) GetAPImethodName() string {
 	return "alipay.data.dataservice.bill.downloadurl.query"
 }
 
-func (this *AlipayDataDataserviceBillDownloadurlQueryRequest) GetApiVersion() string {
+func (this *AlipayDataDataserviceBillDownloadurlQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

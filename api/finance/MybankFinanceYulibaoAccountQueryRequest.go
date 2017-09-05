@@ -21,11 +21,11 @@ type MybankFinanceYulibaoAccountQueryRequestBizContent struct {
 	FundCode string `json:"fund_code"` // 基金代码，必填。目前默认填001529，代表余利宝
 }
 
-func (this *MybankFinanceYulibaoAccountQueryRequest) GetApiMethodName() string {
+func (this *MybankFinanceYulibaoAccountQueryRequest) GetAPImethodName() string {
 	return "mybank.finance.yulibao.account.query"
 }
 
-func (this *MybankFinanceYulibaoAccountQueryRequest) GetApiVersion() string {
+func (this *MybankFinanceYulibaoAccountQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

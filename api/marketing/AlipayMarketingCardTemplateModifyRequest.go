@@ -31,11 +31,11 @@ type AlipayMarketingCardTemplateModifyRequestBizContent struct {
 	CardLevelConf       []TemplateCardLevelConfDTO `json:"card_level_conf"`
 }
 
-func (this *AlipayMarketingCardTemplateModifyRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCardTemplateModifyRequest) GetAPImethodName() string {
 	return "alipay.marketing.card.template.modify"
 }
 
-func (this *AlipayMarketingCardTemplateModifyRequest) GetApiVersion() string {
+func (this *AlipayMarketingCardTemplateModifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

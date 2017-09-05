@@ -29,11 +29,11 @@ type KoubeiMarketingToolPointsUpdateRequestBizContent struct {
 	ExtInfo         string `json:"ext_info"`         // 扩展信息
 }
 
-func (this *KoubeiMarketingToolPointsUpdateRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingToolPointsUpdateRequest) GetAPImethodName() string {
 	return "koubei.marketing.tool.points.update"
 }
 
-func (this *KoubeiMarketingToolPointsUpdateRequest) GetApiVersion() string {
+func (this *KoubeiMarketingToolPointsUpdateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

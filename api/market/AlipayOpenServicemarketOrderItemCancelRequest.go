@@ -23,11 +23,11 @@ type AlipayOpenServicemarketOrderItemCancelRequestBizContent struct {
 	CancelReason     string `json:"cancel_reason"`      // 当前门店区域不支持实施
 }
 
-func (this *AlipayOpenServicemarketOrderItemCancelRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketOrderItemCancelRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.order.item.cancel"
 }
 
-func (this *AlipayOpenServicemarketOrderItemCancelRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketOrderItemCancelRequest) GetAPIversion() string {
 	return "1.0"
 }
 

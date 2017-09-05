@@ -17,11 +17,11 @@ type AlipayEbppPdeductBillPayStatusRequest struct {
 	AgreementId  string `json:"agreement_id"` // 支付宝用户ID
 }
 
-func (this *AlipayEbppPdeductBillPayStatusRequest) GetApiMethodName() string {
+func (this *AlipayEbppPdeductBillPayStatusRequest) GetAPImethodName() string {
 	return "alipay.ebpp.pdeduct.bill.pay.status"
 }
 
-func (this *AlipayEbppPdeductBillPayStatusRequest) GetApiVersion() string {
+func (this *AlipayEbppPdeductBillPayStatusRequest) GetAPIversion() string {
 	return "1.0"
 }
 

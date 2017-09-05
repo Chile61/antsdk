@@ -22,11 +22,11 @@ type AlipayOpenPublicShortlinkCreateRequestBizContent struct {
 	Remark  string `json:"remark"`   // 对于场景ID的描述，商户自己定义
 }
 
-func (this *AlipayOpenPublicShortlinkCreateRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicShortlinkCreateRequest) GetAPImethodName() string {
 	return "alipay.open.public.shortlink.create"
 }
 
-func (this *AlipayOpenPublicShortlinkCreateRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicShortlinkCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

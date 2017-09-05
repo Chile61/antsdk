@@ -15,11 +15,11 @@ type AlipayOpenPublicContactFollowBatchqueryRequest struct {
 	ReturnURL    string `json:"return_url"`
 }
 
-func (this *AlipayOpenPublicContactFollowBatchqueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicContactFollowBatchqueryRequest) GetAPImethodName() string {
 	return "alipay.open.public.contact.follow.batchquery"
 }
 
-func (this *AlipayOpenPublicContactFollowBatchqueryRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicContactFollowBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

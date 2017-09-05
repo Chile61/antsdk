@@ -23,11 +23,11 @@ type AlipaySecurityRiskRainscoreQueryRequestBizContent struct {
 	Version     string `json:"version"`      // “蚁盾”风险评分服务版本号，当前版本为2.0
 }
 
-func (this *AlipaySecurityRiskRainscoreQueryRequest) GetApiMethodName() string {
+func (this *AlipaySecurityRiskRainscoreQueryRequest) GetAPImethodName() string {
 	return "alipay.security.risk.rainscore.query"
 }
 
-func (this *AlipaySecurityRiskRainscoreQueryRequest) GetApiVersion() string {
+func (this *AlipaySecurityRiskRainscoreQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -25,11 +25,11 @@ type KoubeiMarketingDataIndicatorQueryRequestBizContent struct {
 	ExtInfo   string `json:"ext_info"`   // camp_id：为活动ID sort_field：为排序指标KEY sort_type：ASC表示升序,DESC表示降序 store_Ids：为门店ID，多个门店使用逗号分隔
 }
 
-func (this *KoubeiMarketingDataIndicatorQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingDataIndicatorQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.data.indicator.query"
 }
 
-func (this *KoubeiMarketingDataIndicatorQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingDataIndicatorQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

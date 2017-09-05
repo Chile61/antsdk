@@ -28,11 +28,11 @@ type AlipayTradeRefundRequestBizContent struct {
 	TerminalId   string  `json:"terminal_id"`    // 商户的终端编号
 }
 
-func (this *AlipayTradeRefundRequest) GetApiMethodName() string {
+func (this *AlipayTradeRefundRequest) GetAPImethodName() string {
 	return "alipay.trade.refund"
 }
 
-func (this *AlipayTradeRefundRequest) GetApiVersion() string {
+func (this *AlipayTradeRefundRequest) GetAPIversion() string {
 	return "1.0"
 }
 

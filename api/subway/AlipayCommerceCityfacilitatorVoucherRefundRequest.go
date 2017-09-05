@@ -22,11 +22,11 @@ type AlipayCommerceCityfacilitatorVoucherRefundRequestBizContent struct {
 	TradeNo  string `json:"trade_no"`  // 支付宝交易号
 }
 
-func (this *AlipayCommerceCityfacilitatorVoucherRefundRequest) GetApiMethodName() string {
+func (this *AlipayCommerceCityfacilitatorVoucherRefundRequest) GetAPImethodName() string {
 	return "alipay.commerce.cityfacilitator.voucher.refund"
 }
 
-func (this *AlipayCommerceCityfacilitatorVoucherRefundRequest) GetApiVersion() string {
+func (this *AlipayCommerceCityfacilitatorVoucherRefundRequest) GetAPIversion() string {
 	return "1.0"
 }
 

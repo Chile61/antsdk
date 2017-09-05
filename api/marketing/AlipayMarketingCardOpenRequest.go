@@ -25,11 +25,11 @@ type AlipayMarketingCardOpenRequestBizContent struct {
 	MemberExtInfo  MerchantMenber `json:"member_ext_info"`  // 商户会员信息
 }
 
-func (this *AlipayMarketingCardOpenRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCardOpenRequest) GetAPImethodName() string {
 	return "alipay.marketing.card.open"
 }
 
-func (this *AlipayMarketingCardOpenRequest) GetApiVersion() string {
+func (this *AlipayMarketingCardOpenRequest) GetAPIversion() string {
 	return "1.0"
 }
 

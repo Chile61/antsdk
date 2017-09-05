@@ -22,11 +22,11 @@ type AlipayUserInfoAuthRequestBizContent struct {
 	State  string   `json:"state"`  // 商户自定义参数，用户授权后，重定向到redirect_uri时会原样回传给商户。 为防止CSRF攻击，建议开发者请求授权时传入state参数，该参数要做到既不可预测，又可以证明客户端和当前第三方网站的登录认证状态存在关联。
 }
 
-func (this *AlipayUserInfoAuthRequest) GetApiMethodName() string {
+func (this *AlipayUserInfoAuthRequest) GetAPImethodName() string {
 	return "alipay.user.info.auth"
 }
 
-func (this *AlipayUserInfoAuthRequest) GetApiVersion() string {
+func (this *AlipayUserInfoAuthRequest) GetAPIversion() string {
 	return "1.0"
 }
 

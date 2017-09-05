@@ -23,11 +23,11 @@ type AlipayTradeFastpayRefundQueryRequestBizContent struct {
 	OutRequestNo string `json:"out_request_no"` // 请求退款接口时，传入的退款请求号，如果在退款请求时未传入，则该值为创建交易时的外部交易号
 }
 
-func (this *AlipayTradeFastpayRefundQueryRequest) GetApiMethodName() string {
+func (this *AlipayTradeFastpayRefundQueryRequest) GetAPImethodName() string {
 	return "alipay.trade.fastpay.refund.query"
 }
 
-func (this *AlipayTradeFastpayRefundQueryRequest) GetApiVersion() string {
+func (this *AlipayTradeFastpayRefundQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

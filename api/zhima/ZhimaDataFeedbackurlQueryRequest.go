@@ -21,11 +21,11 @@ type ZhimaDataFeedbackurlQueryRequestBizContent struct {
 	MerchantId string `json:"merchant_id"`
 }
 
-func (this *ZhimaDataFeedbackurlQueryRequest) GetApiMethodName() string {
+func (this *ZhimaDataFeedbackurlQueryRequest) GetAPImethodName() string {
 	return "zhima.data.feedbackurl.query"
 }
 
-func (this *ZhimaDataFeedbackurlQueryRequest) GetApiVersion() string {
+func (this *ZhimaDataFeedbackurlQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

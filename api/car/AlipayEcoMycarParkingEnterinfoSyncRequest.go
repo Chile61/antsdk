@@ -23,11 +23,11 @@ type AlipayEcoMycarParkingEnterinfoSyncRequestBizContent struct {
 	InTime    string `json:"in_time"`    // 车辆入场的时间，格式"YYYY-MM-DD HH:mm:ss"，24小时制
 }
 
-func (this *AlipayEcoMycarParkingEnterinfoSyncRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingEnterinfoSyncRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.enterinfo.sync"
 }
 
-func (this *AlipayEcoMycarParkingEnterinfoSyncRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingEnterinfoSyncRequest) GetAPIversion() string {
 	return "1.0"
 }
 

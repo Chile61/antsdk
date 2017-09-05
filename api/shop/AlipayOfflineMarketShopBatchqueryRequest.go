@@ -21,11 +21,11 @@ type AlipayOfflineMarketShopBatchqueryRequestBizContent struct {
 	PageNo string `json:"page_no"` // 页码，第一页传入"1"，默认500个结果为一页
 }
 
-func (this *AlipayOfflineMarketShopBatchqueryRequest) GetApiMethodName() string {
+func (this *AlipayOfflineMarketShopBatchqueryRequest) GetAPImethodName() string {
 	return "alipay.offline.market.shop.batchquery"
 }
 
-func (this *AlipayOfflineMarketShopBatchqueryRequest) GetApiVersion() string {
+func (this *AlipayOfflineMarketShopBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

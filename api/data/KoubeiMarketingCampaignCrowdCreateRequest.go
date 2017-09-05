@@ -25,11 +25,11 @@ type KoubeiMarketingCampaignCrowdCreateRequestBizContent struct {
 	OperatorType string `json:"operator_type"` // 操作人类型,有以下值可填：MER（外部商户），MER_OPERATOR（外部商户操作员），PROVIDER（外部服务商），PROVIDER_STAFF（外部服务商员工），默认不需要填这个字段，默认为MER
 }
 
-func (this *KoubeiMarketingCampaignCrowdCreateRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignCrowdCreateRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.crowd.create"
 }
 
-func (this *KoubeiMarketingCampaignCrowdCreateRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignCrowdCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -21,11 +21,11 @@ type AlipayOpenServicemarketOrderAcceptRequestBizContent struct {
 	CommodityOrderId string `json:"commodity_order_id"` // 服务商品订单ID
 }
 
-func (this *AlipayOpenServicemarketOrderAcceptRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketOrderAcceptRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.order.accept"
 }
 
-func (this *AlipayOpenServicemarketOrderAcceptRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketOrderAcceptRequest) GetAPIversion() string {
 	return "1.0"
 }
 

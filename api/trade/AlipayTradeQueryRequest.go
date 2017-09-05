@@ -22,11 +22,11 @@ type AlipayTradeQueryRequestBizContent struct {
 	TradeNo    string `json:"trade_no"`     // 支付宝交易号，和商户订单号不能同时为空
 }
 
-func (this *AlipayTradeQueryRequest) GetApiMethodName() string {
+func (this *AlipayTradeQueryRequest) GetAPImethodName() string {
 	return "alipay.trade.query"
 }
 
-func (this *AlipayTradeQueryRequest) GetApiVersion() string {
+func (this *AlipayTradeQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

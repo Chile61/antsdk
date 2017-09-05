@@ -17,11 +17,11 @@ type AlipayEbppBillGetRequest struct {
 	MerchantOrderNo string `json:"merchant_order_no"`
 }
 
-func (this *AlipayEbppBillGetRequest) GetApiMethodName() string {
+func (this *AlipayEbppBillGetRequest) GetAPImethodName() string {
 	return "alipay.ebpp.bill.get"
 }
 
-func (this *AlipayEbppBillGetRequest) GetApiVersion() string {
+func (this *AlipayEbppBillGetRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -23,11 +23,11 @@ type AlipayOpenPublicMessageCustomSendRequestBizContent struct {
 	Text     Text      `json:"text"`       // 当msg_type为text时，必须设置相对应的值
 }
 
-func (this *AlipayOpenPublicMessageCustomSendRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicMessageCustomSendRequest) GetAPImethodName() string {
 	return "alipay.open.public.message.custom.send"
 }
 
-func (this *AlipayOpenPublicMessageCustomSendRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicMessageCustomSendRequest) GetAPIversion() string {
 	return "1.0"
 }
 

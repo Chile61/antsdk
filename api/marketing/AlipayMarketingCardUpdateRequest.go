@@ -24,11 +24,11 @@ type AlipayMarketingCardUpdateRequestBizContent struct {
 	ExtInfo          string       `json:"ext_info"`            // 扩展信息(暂时无用)
 }
 
-func (this *AlipayMarketingCardUpdateRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCardUpdateRequest) GetAPImethodName() string {
 	return "alipay.marketing.card.update"
 }
 
-func (this *AlipayMarketingCardUpdateRequest) GetApiVersion() string {
+func (this *AlipayMarketingCardUpdateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

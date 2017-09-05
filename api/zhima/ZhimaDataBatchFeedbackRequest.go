@@ -24,11 +24,11 @@ type ZhimaDataBatchFeedbackRequest struct {
 	FileDescription   string          `json:"file_description"`    // 文件描述信息
 }
 
-func (this *ZhimaDataBatchFeedbackRequest) GetApiMethodName() string {
+func (this *ZhimaDataBatchFeedbackRequest) GetAPImethodName() string {
 	return "zhima.data.batch.feedback"
 }
 
-func (this *ZhimaDataBatchFeedbackRequest) GetApiVersion() string {
+func (this *ZhimaDataBatchFeedbackRequest) GetAPIversion() string {
 	return "1.0"
 }
 

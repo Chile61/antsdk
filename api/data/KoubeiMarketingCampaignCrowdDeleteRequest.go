@@ -21,11 +21,11 @@ type KoubeiMarketingCampaignCrowdDeleteRequestBizContent struct {
 	CrowdGroupId string `json:"crowd_group_id"` // 人群组的唯一标识ID
 }
 
-func (this *KoubeiMarketingCampaignCrowdDeleteRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignCrowdDeleteRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.crowd.delete"
 }
 
-func (this *KoubeiMarketingCampaignCrowdDeleteRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignCrowdDeleteRequest) GetAPIversion() string {
 	return "1.0"
 }
 

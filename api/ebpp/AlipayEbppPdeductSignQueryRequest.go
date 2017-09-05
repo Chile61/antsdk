@@ -26,11 +26,11 @@ type AlipayEbppPdeductSignQueryRequestBizContent struct {
 	BillKey     string `json:"bill_key"`     // 户号，机构针对于每户的水、电都会有唯一的标识户号
 }
 
-func (this *AlipayEbppPdeductSignQueryRequest) GetApiMethodName() string {
+func (this *AlipayEbppPdeductSignQueryRequest) GetAPImethodName() string {
 	return "alipay.ebpp.pdeduct.sign.query"
 }
 
-func (this *AlipayEbppPdeductSignQueryRequest) GetApiVersion() string {
+func (this *AlipayEbppPdeductSignQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

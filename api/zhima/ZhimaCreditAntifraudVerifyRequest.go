@@ -33,11 +33,11 @@ type ZhimaCreditAntifraudVerifyRequestBizContent struct {
 	IMEI          string `json:"imei"`           // 国际移动设备标志。15位长度数字
 }
 
-func (this *ZhimaCreditAntifraudVerifyRequest) GetApiMethodName() string {
+func (this *ZhimaCreditAntifraudVerifyRequest) GetAPImethodName() string {
 	return "zhima.credit.antifraud.verify"
 }
 
-func (this *ZhimaCreditAntifraudVerifyRequest) GetApiVersion() string {
+func (this *ZhimaCreditAntifraudVerifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

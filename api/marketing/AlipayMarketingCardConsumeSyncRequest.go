@@ -33,11 +33,11 @@ type AlipayMarketingCardConsumeSyncRequestBizContent struct {
 	SwipeCertType    string              `json:"swipe_cert_type"`     // 产生该笔交易时，用户出具的凭证类型 ALIPAY：支付宝电子卡 ENTITY：实体卡 OTHER：其他
 }
 
-func (this *AlipayMarketingCardConsumeSyncRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCardConsumeSyncRequest) GetAPImethodName() string {
 	return "alipay.marketing.card.consume.sync"
 }
 
-func (this *AlipayMarketingCardConsumeSyncRequest) GetApiVersion() string {
+func (this *AlipayMarketingCardConsumeSyncRequest) GetAPIversion() string {
 	return "1.0"
 }
 

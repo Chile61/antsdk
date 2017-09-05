@@ -28,11 +28,11 @@ type AlipayCommerceCityfacilitatorVoucherGenerateRequestBizContent struct {
 	TicketPrice string  `json:"ticket_price"` // 单张票价，元为单价
 }
 
-func (this *AlipayCommerceCityfacilitatorVoucherGenerateRequest) GetApiMethodName() string {
+func (this *AlipayCommerceCityfacilitatorVoucherGenerateRequest) GetAPImethodName() string {
 	return "alipay.commerce.cityfacilitator.voucher.generate"
 }
 
-func (this *AlipayCommerceCityfacilitatorVoucherGenerateRequest) GetApiVersion() string {
+func (this *AlipayCommerceCityfacilitatorVoucherGenerateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

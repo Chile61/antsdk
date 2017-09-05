@@ -22,11 +22,11 @@ type AlipayOpenServicemarketCommodityShopOfflineRequestBizContent struct {
 	ShopId      string `json:"shop_id"`      // 门店ID
 }
 
-func (this *AlipayOpenServicemarketCommodityShopOfflineRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketCommodityShopOfflineRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.commodity.shop.offline"
 }
 
-func (this *AlipayOpenServicemarketCommodityShopOfflineRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketCommodityShopOfflineRequest) GetAPIversion() string {
 	return "1.0"
 }
 

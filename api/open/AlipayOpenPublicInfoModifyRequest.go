@@ -26,11 +26,11 @@ type AlipayOpenPublicInfoModifyRequestBizContent struct {
 	AuthPic        string   `json:"auth_pic"`        // 授权运营书，企业商户若为被经营方授权，需上传加盖公章的扫描件，请使用照片上传接口上传图片获得image_url
 }
 
-func (this *AlipayOpenPublicInfoModifyRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicInfoModifyRequest) GetAPImethodName() string {
 	return "alipay.open.public.info.modify"
 }
 
-func (this *AlipayOpenPublicInfoModifyRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicInfoModifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

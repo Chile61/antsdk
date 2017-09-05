@@ -24,11 +24,11 @@ type AlipayTradeOrderSettleRequestBizContent struct {
 	OperatorId        string                         `json:"operator_id"`        // 操作员id
 }
 
-func (this *AlipayTradeOrderSettleRequest) GetApiMethodName() string {
+func (this *AlipayTradeOrderSettleRequest) GetAPImethodName() string {
 	return "alipay.trade.order.settle"
 }
 
-func (this *AlipayTradeOrderSettleRequest) GetApiVersion() string {
+func (this *AlipayTradeOrderSettleRequest) GetAPIversion() string {
 	return "1.0"
 }
 

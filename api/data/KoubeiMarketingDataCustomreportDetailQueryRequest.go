@@ -21,11 +21,11 @@ type KoubeiMarketingDataCustomreportDetailQueryRequestBizContent struct {
 	ConditionKey string `json:"condition_key"` // 自定义报表的规则KEY
 }
 
-func (this *KoubeiMarketingDataCustomreportDetailQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingDataCustomreportDetailQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.data.customreport.detail.query"
 }
 
-func (this *KoubeiMarketingDataCustomreportDetailQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingDataCustomreportDetailQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

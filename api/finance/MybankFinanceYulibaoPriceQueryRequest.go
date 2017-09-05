@@ -21,11 +21,11 @@ type MybankFinanceYulibaoPriceQueryRequestBizContent struct {
 	EndDate   string `json:"end_date"`   // 查询行情的截止日期，必须是格式为yyyyMMdd的日期字符串且日期要大于等于start_date，时间最大跨度为30天，如start_date为20160808，则end_date最大值为20160906
 }
 
-func (this *MybankFinanceYulibaoPriceQueryRequest) GetApiMethodName() string {
+func (this *MybankFinanceYulibaoPriceQueryRequest) GetAPImethodName() string {
 	return "mybank.finance.yulibao.price.query"
 }
 
-func (this *MybankFinanceYulibaoPriceQueryRequest) GetApiVersion() string {
+func (this *MybankFinanceYulibaoPriceQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

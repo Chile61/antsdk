@@ -21,11 +21,11 @@ type AlipayOpenAuthTokenAppQueryRequestBizContent struct {
 	AppAuthToken string `json:"app_auth_token"` // 应用授权令牌
 }
 
-func (this *AlipayOpenAuthTokenAppQueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenAuthTokenAppQueryRequest) GetAPImethodName() string {
 	return "alipay.open.auth.token.app.query"
 }
 
-func (this *AlipayOpenAuthTokenAppQueryRequest) GetApiVersion() string {
+func (this *AlipayOpenAuthTokenAppQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

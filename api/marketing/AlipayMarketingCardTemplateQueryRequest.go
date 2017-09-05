@@ -20,11 +20,11 @@ type AlipayMarketingCardTemplateQueryRequestBizContent struct {
 	TemplateId string `json:"template_id"` // 支付宝卡模板ID（模板创建接口返回的支付宝端模板ID）
 }
 
-func (this *AlipayMarketingCardTemplateQueryRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCardTemplateQueryRequest) GetAPImethodName() string {
 	return "alipay.marketing.card.template.query"
 }
 
-func (this *AlipayMarketingCardTemplateQueryRequest) GetApiVersion() string {
+func (this *AlipayMarketingCardTemplateQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -23,11 +23,11 @@ type MybankFinanceYulibaoCapitalPurchaseRequestBizContent struct {
 	OutBizNo string `json:"out_biz_no"` // 余利宝申购流水号，用于幂等控制。流水号必须长度在30到40位之间，且仅能由数字、字母、字符“-”和字符“_”组成。建议使用UUID，如“c39c24f1-73e5-497d-9b1f-0f585ae192c1”，或者使用自定义的数字流水号，如“201608150000000000000000000000000001”。
 }
 
-func (this *MybankFinanceYulibaoCapitalPurchaseRequest) GetApiMethodName() string {
+func (this *MybankFinanceYulibaoCapitalPurchaseRequest) GetAPImethodName() string {
 	return "mybank.finance.yulibao.capital.purchase"
 }
 
-func (this *MybankFinanceYulibaoCapitalPurchaseRequest) GetApiVersion() string {
+func (this *MybankFinanceYulibaoCapitalPurchaseRequest) GetAPIversion() string {
 	return "1.0"
 }
 

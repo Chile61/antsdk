@@ -20,11 +20,11 @@ type AlipayOpenServicemarketCommodityShopOnlineRequest struct {
 type AlipayOpenServicemarketCommodityShopOnlineRequestBizContent struct {
 }
 
-func (this *AlipayOpenServicemarketCommodityShopOnlineRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketCommodityShopOnlineRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.commodity.shop.online"
 }
 
-func (this *AlipayOpenServicemarketCommodityShopOnlineRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketCommodityShopOnlineRequest) GetAPIversion() string {
 	return "1.0"
 }
 

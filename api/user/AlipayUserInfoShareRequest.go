@@ -20,13 +20,13 @@ type AlipayUserInfoShareRequest struct {
 	ReturnURL    string `json:"return_url"`
 }
 
-// GetApiMethodName GetApiMethodName
-func (requ *AlipayUserInfoShareRequest) GetApiMethodName() string {
+// GetAPImethodName GetAPImethodName
+func (requ *AlipayUserInfoShareRequest) GetAPImethodName() string {
 	return "alipay.user.info.share"
 }
 
-// GetApiVersion GetApiVersion
-func (requ *AlipayUserInfoShareRequest) GetApiVersion() string {
+// GetAPIversion GetAPIversion
+func (requ *AlipayUserInfoShareRequest) GetAPIversion() string {
 	return "1.0"
 }
 

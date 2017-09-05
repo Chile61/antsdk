@@ -22,11 +22,11 @@ type AlipayOpenServicemarketOrderRejectRequestBizContent struct {
 	RejectReason     string `json:"reject_reason"`      // v
 }
 
-func (this *AlipayOpenServicemarketOrderRejectRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketOrderRejectRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.order.reject"
 }
 
-func (this *AlipayOpenServicemarketOrderRejectRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketOrderRejectRequest) GetAPIversion() string {
 	return "1.0"
 }
 

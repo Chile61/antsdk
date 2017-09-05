@@ -37,11 +37,11 @@ type AlipayTradePreCreateRequestBizContent struct {
 	AlipayStoreId        string         `json:"alipay_store_id"`       // 支付宝店铺的门店ID
 }
 
-func (this *AlipayTradePreCreateRequest) GetApiMethodName() string {
+func (this *AlipayTradePreCreateRequest) GetAPImethodName() string {
 	return "alipay.trade.precreate"
 }
 
-func (this *AlipayTradePreCreateRequest) GetApiVersion() string {
+func (this *AlipayTradePreCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -26,11 +26,11 @@ type KoubeiMarketingCampaignRecruitShopQueryRequestBizContent struct {
 	OperatorType string `json:"operator_type"` // 操作人类型
 }
 
-func (this *KoubeiMarketingCampaignRecruitShopQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignRecruitShopQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.recruit.shop.query"
 }
 
-func (this *KoubeiMarketingCampaignRecruitShopQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignRecruitShopQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

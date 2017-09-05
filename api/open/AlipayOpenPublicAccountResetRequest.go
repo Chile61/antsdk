@@ -26,11 +26,11 @@ type AlipayOpenPublicAccountResetRequestBizContent struct {
 	Remark        string `json:"remark"`          // 备注信息，开发者可以通过该字段纪录其他的额外信息
 }
 
-func (this *AlipayOpenPublicAccountResetRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicAccountResetRequest) GetAPImethodName() string {
 	return "alipay.open.public.account.reset"
 }
 
-func (this *AlipayOpenPublicAccountResetRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicAccountResetRequest) GetAPIversion() string {
 	return "1.0"
 }
 

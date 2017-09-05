@@ -6,8 +6,8 @@ import (
 
 // IAlipayRequest 请求接口
 type IAlipayRequest interface {
-	GetApiMethodName() string
-	GetApiVersion() string
+	GetAPImethodName() string
+	GetAPIversion() string
 	GetTerminalType() string
 	GetTerminalInfo() string
 	GetNotifyURL() string

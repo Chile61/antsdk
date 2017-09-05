@@ -21,11 +21,11 @@ type AlipayOpenPublicAccountQueryRequestBizContent struct {
 	UserId string `json:"user_id"` // 支付宝账号userid，2088开头长度为16位的字符串
 }
 
-func (this *AlipayOpenPublicAccountQueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicAccountQueryRequest) GetAPImethodName() string {
 	return "alipay.open.public.account.query"
 }
 
-func (this *AlipayOpenPublicAccountQueryRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicAccountQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -23,11 +23,11 @@ type AlipayTradeCloseRequestBizContent struct {
 	OperatorId string `json:"operator_id"`  // 卖家端自定义的的操作员 ID
 }
 
-func (this AlipayTradeCloseRequest) GetApiMethodName() string {
+func (this AlipayTradeCloseRequest) GetAPImethodName() string {
 	return "alipay.trade.close"
 }
 
-func (this *AlipayTradeCloseRequest) GetApiVersion() string {
+func (this *AlipayTradeCloseRequest) GetAPIversion() string {
 	return "1.0"
 }
 

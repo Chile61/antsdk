@@ -23,11 +23,11 @@ type KoubeiMarketingCampaignCrowdBatchqueryRequestBizContent struct {
 	PageSize   string `json:"page_size"`   // 分页大小，每页显示的数目，如果不填写默认为20
 }
 
-func (this *KoubeiMarketingCampaignCrowdBatchqueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignCrowdBatchqueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.crowd.batchquery"
 }
 
-func (this *KoubeiMarketingCampaignCrowdBatchqueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignCrowdBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

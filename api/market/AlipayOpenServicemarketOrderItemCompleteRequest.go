@@ -22,11 +22,11 @@ type AlipayOpenServicemarketOrderItemCompleteRequestBizContent struct {
 	ShopId           string `json:"shop_id"`            // 订购插件选择的某一店铺ID
 }
 
-func (this *AlipayOpenServicemarketOrderItemCompleteRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketOrderItemCompleteRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.order.item.complete"
 }
 
-func (this *AlipayOpenServicemarketOrderItemCompleteRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketOrderItemCompleteRequest) GetAPIversion() string {
 	return "1.0"
 }
 

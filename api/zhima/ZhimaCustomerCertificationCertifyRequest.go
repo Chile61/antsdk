@@ -21,11 +21,11 @@ type ZhimaCustomerCertificationCertifyRequestBizContent struct {
 	BizNo string `json:"biz_no"` // 一次认证的唯一标识,在完成芝麻认证初始化后可以获取
 }
 
-func (this *ZhimaCustomerCertificationCertifyRequest) GetApiMethodName() string {
+func (this *ZhimaCustomerCertificationCertifyRequest) GetAPImethodName() string {
 	return "zhima.customer.certification.certify"
 }
 
-func (this *ZhimaCustomerCertificationCertifyRequest) GetApiVersion() string {
+func (this *ZhimaCustomerCertificationCertifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

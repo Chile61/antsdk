@@ -38,11 +38,11 @@ type AlipayTradePayRequestBizContent struct {
 	SubMerchant          SubMerchant   `json:"sub_merchant"`          // 二级商户信息,当前只对特殊银行机构特定场景下使用此字段
 }
 
-func (this *AlipayTradePayRequest) GetApiMethodName() string {
+func (this *AlipayTradePayRequest) GetAPImethodName() string {
 	return "alipay.trade.pay"
 }
 
-func (this *AlipayTradePayRequest) GetApiVersion() string {
+func (this *AlipayTradePayRequest) GetAPIversion() string {
 	return "1.0"
 }
 

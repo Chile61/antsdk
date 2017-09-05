@@ -31,11 +31,11 @@ type AlipayOfflineProviderUseractionRecordRequestBizContent struct {
 	ActionOuterId  string      `json:"action_outer_id"`
 }
 
-func (this *AlipayOfflineProviderUseractionRecordRequest) GetApiMethodName() string {
+func (this *AlipayOfflineProviderUseractionRecordRequest) GetAPImethodName() string {
 	return "alipay.offline.provider.useraction.record"
 }
 
-func (this *AlipayOfflineProviderUseractionRecordRequest) GetApiVersion() string {
+func (this *AlipayOfflineProviderUseractionRecordRequest) GetAPIversion() string {
 	return "1.0"
 }
 

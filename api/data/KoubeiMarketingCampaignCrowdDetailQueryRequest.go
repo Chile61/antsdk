@@ -21,11 +21,11 @@ type KoubeiMarketingCampaignCrowdDetailQueryRequestBizContent struct {
 	CrowdGroupId string `json:"crowd_group_id"` // 人群组ID，人群组创建成功时返回的ID
 }
 
-func (this *KoubeiMarketingCampaignCrowdDetailQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignCrowdDetailQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.crowd.detail.query"
 }
 
-func (this *KoubeiMarketingCampaignCrowdDetailQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignCrowdDetailQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

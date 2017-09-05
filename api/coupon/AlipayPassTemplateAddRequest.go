@@ -22,11 +22,11 @@ type AlipayPassTemplateAddRequestBizContent struct {
 	TplContent string `json:"tpl_content"` // 模板内容信息，遵循JSON规范，详情参见tpl_content参数说明(https://doc.open.alipay.com/doc2/detail.htm?treeId=193&articleId=105249&docType=1#tpl_content)
 }
 
-func (this *AlipayPassTemplateAddRequest) GetApiMethodName() string {
+func (this *AlipayPassTemplateAddRequest) GetAPImethodName() string {
 	return "alipay.pass.template.add"
 }
 
-func (this *AlipayPassTemplateAddRequest) GetApiVersion() string {
+func (this *AlipayPassTemplateAddRequest) GetAPIversion() string {
 	return "1.0"
 }
 

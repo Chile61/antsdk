@@ -22,11 +22,11 @@ type AlipayOpenPublicAccountDeleteRequestBizContent struct {
 	BindAccountNo string `json:"bind_account_no"` // 绑定帐号，建议在开发者的系统中保持唯一性，与agreement_id不能同时为空
 }
 
-func (this *AlipayOpenPublicAccountDeleteRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicAccountDeleteRequest) GetAPImethodName() string {
 	return "alipay.open.public.account.delete"
 }
 
-func (this *AlipayOpenPublicAccountDeleteRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicAccountDeleteRequest) GetAPIversion() string {
 	return "1.0"
 }
 

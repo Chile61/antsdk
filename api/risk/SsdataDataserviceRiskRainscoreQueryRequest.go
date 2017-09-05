@@ -23,11 +23,11 @@ type SsdataDataserviceRiskRainscoreQueryRequestBizContent struct {
 	Version     string `json:"version"`      // “蚁盾”风险评分服务版本号，当前版本为2.0
 }
 
-func (this *SsdataDataserviceRiskRainscoreQueryRequest) GetApiMethodName() string {
+func (this *SsdataDataserviceRiskRainscoreQueryRequest) GetAPImethodName() string {
 	return "ssdata.dataservice.risk.rainscore.query"
 }
 
-func (this *SsdataDataserviceRiskRainscoreQueryRequest) GetApiVersion() string {
+func (this *SsdataDataserviceRiskRainscoreQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

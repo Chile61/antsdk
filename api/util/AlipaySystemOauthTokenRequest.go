@@ -18,11 +18,11 @@ type AlipaySystemOauthTokenRequest struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
-func (this *AlipaySystemOauthTokenRequest) GetApiMethodName() string {
+func (this *AlipaySystemOauthTokenRequest) GetAPImethodName() string {
 	return "alipay.system.oauth.token"
 }
 
-func (this *AlipaySystemOauthTokenRequest) GetApiVersion() string {
+func (this *AlipaySystemOauthTokenRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -24,11 +24,11 @@ type MybankFinanceYulibaoTransHistoryQueryRequestBizContent struct {
 	PageSize  int    `json:"page_size"`  // 每页条数，历史交易记录查询时每页的最大条数。必须为正整数，最大值为50。
 }
 
-func (this *MybankFinanceYulibaoTransHistoryQueryRequest) GetApiMethodName() string {
+func (this *MybankFinanceYulibaoTransHistoryQueryRequest) GetAPImethodName() string {
 	return "mybank.finance.yulibao.trans.history.query"
 }
 
-func (this *MybankFinanceYulibaoTransHistoryQueryRequest) GetApiVersion() string {
+func (this *MybankFinanceYulibaoTransHistoryQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -21,11 +21,11 @@ type AlipayMarketingCdpAdvertiseQueryRequestBizContent struct {
 	AdId string `json:"ad_id"` // 广告Id，唯一标识一条广告
 }
 
-func (this *AlipayMarketingCdpAdvertiseQueryRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCdpAdvertiseQueryRequest) GetAPImethodName() string {
 	return "alipay.marketing.cdp.advertise.query"
 }
 
-func (this *AlipayMarketingCdpAdvertiseQueryRequest) GetApiVersion() string {
+func (this *AlipayMarketingCdpAdvertiseQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

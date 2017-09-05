@@ -23,11 +23,11 @@ type KoubeiMarketingDataCustomreportQueryRequestBizContent struct {
 	MaxCount     string      `json:"max_count"`     // 一次拉多少条
 }
 
-func (this *KoubeiMarketingDataCustomreportQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingDataCustomreportQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.data.customreport.query"
 }
 
-func (this *KoubeiMarketingDataCustomreportQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingDataCustomreportQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

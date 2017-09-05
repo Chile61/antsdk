@@ -58,11 +58,11 @@ type AlipayOfflineMarketShopModifyRequestBizContent struct {
 	BizVersion                 string  `json:"biz_version"`                  // 店铺接口业务版本号，新接入的ISV，请统一传入2.0。
 }
 
-func (this *AlipayOfflineMarketShopModifyRequest) GetApiMethodName() string {
+func (this *AlipayOfflineMarketShopModifyRequest) GetAPImethodName() string {
 	return "alipay.offline.market.shop.modify"
 }
 
-func (this *AlipayOfflineMarketShopModifyRequest) GetApiVersion() string {
+func (this *AlipayOfflineMarketShopModifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

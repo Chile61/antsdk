@@ -16,11 +16,11 @@ type AlipayOpenServicemarketOrderNotifyRequest struct {
 	ReturnURL    string `json:"return_url"`
 }
 
-func (this *AlipayOpenServicemarketOrderNotifyRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketOrderNotifyRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.order.notify"
 }
 
-func (this *AlipayOpenServicemarketOrderNotifyRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketOrderNotifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

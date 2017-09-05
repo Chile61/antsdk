@@ -25,11 +25,11 @@ type ZhimaCustomerCertificationInitializeRequestBizContent struct {
 	ExtBizParam   string `json:"ext_biz_param"`  // 扩展业务参数,暂时没有用到,接口预留
 }
 
-func (this *ZhimaCustomerCertificationInitializeRequest) GetApiMethodName() string {
+func (this *ZhimaCustomerCertificationInitializeRequest) GetAPImethodName() string {
 	return "zhima.customer.certification.initialize"
 }
 
-func (this *ZhimaCustomerCertificationInitializeRequest) GetApiVersion() string {
+func (this *ZhimaCustomerCertificationInitializeRequest) GetAPIversion() string {
 	return "1.0"
 }
 

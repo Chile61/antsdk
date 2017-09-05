@@ -24,11 +24,11 @@ type MybankFinanceYulibaoCapitalRansomRequestBizContent struct {
 	OutBizNo   string `json:"out_biz_no"`  // 余利宝赎回流水号，用于幂等控制。流水号必须长度在30到40位之间，且仅能由数字、字母、字符“-”和字符“_”组成。建议使用UUID，如“c39c24f1-73e5-497d-9b1f-0f585ae192c1”，或者使用自定义的数字流水号，如“201608150000000000000000000000000001”。
 }
 
-func (this *MybankFinanceYulibaoCapitalRansomRequest) GetApiMethodName() string {
+func (this *MybankFinanceYulibaoCapitalRansomRequest) GetAPImethodName() string {
 	return "mybank.finance.yulibao.capital.ransom"
 }
 
-func (this *MybankFinanceYulibaoCapitalRansomRequest) GetApiVersion() string {
+func (this *MybankFinanceYulibaoCapitalRansomRequest) GetAPIversion() string {
 	return "1.0"
 }
 

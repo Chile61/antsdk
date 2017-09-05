@@ -216,8 +216,8 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToke
 	}
 
 	protocalMustParams := utils.NewAlipayHashMap()
-	protocalMustParams.Put(constMethodKey, request.GetApiMethodName())
-	protocalMustParams.Put(constVersionKey, request.GetApiVersion())
+	protocalMustParams.Put(constMethodKey, request.GetAPImethodName())
+	protocalMustParams.Put(constVersionKey, request.GetAPIversion())
 	protocalMustParams.Put(constAppIDKey, c.appID)
 	protocalMustParams.Put(constSignTypeKey, c.signType)
 	protocalMustParams.Put(constTerminalTypeKey, request.GetTerminalType())

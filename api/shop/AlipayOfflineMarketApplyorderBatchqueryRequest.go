@@ -32,11 +32,11 @@ type AlipayOfflineMarketApplyorderBatchqueryRequestBizContent struct {
 	PageSize   int      `json:"page_size"`   // 每页记录数。默认20，最大100。
 }
 
-func (this *AlipayOfflineMarketApplyorderBatchqueryRequest) GetApiMethodName() string {
+func (this *AlipayOfflineMarketApplyorderBatchqueryRequest) GetAPImethodName() string {
 	return "alipay.offline.market.applyorder.batchquery"
 }
 
-func (this *AlipayOfflineMarketApplyorderBatchqueryRequest) GetApiVersion() string {
+func (this *AlipayOfflineMarketApplyorderBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

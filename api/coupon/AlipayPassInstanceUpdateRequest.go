@@ -26,11 +26,11 @@ type AlipayPassInstanceUpdateRequestBizContent struct {
 	VerifyType   string `json:"verify_type"`   // 核销方式，目前支持：wave（声波方式）、qrcode（二维码方式）、barcode（条码方式）、input（文本方式，即手工输入方式）。pass和verify_type不能同时为空
 }
 
-func (this *AlipayPassInstanceUpdateRequest) GetApiMethodName() string {
+func (this *AlipayPassInstanceUpdateRequest) GetAPImethodName() string {
 	return "alipay.pass.instance.update"
 }
 
-func (this *AlipayPassInstanceUpdateRequest) GetApiVersion() string {
+func (this *AlipayPassInstanceUpdateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

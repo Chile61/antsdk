@@ -26,11 +26,11 @@ type AlipayOfflineProviderDishQueryRequestBizContent struct {
 	PageSize     int    `json:"page_size"`      // 分页查询每页的条数，默认为20条，非必填
 }
 
-func (this *AlipayOfflineProviderDishQueryRequest) GetApiMethodName() string {
+func (this *AlipayOfflineProviderDishQueryRequest) GetAPImethodName() string {
 	return "alipay.offline.provider.dish.query"
 }
 
-func (this *AlipayOfflineProviderDishQueryRequest) GetApiVersion() string {
+func (this *AlipayOfflineProviderDishQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

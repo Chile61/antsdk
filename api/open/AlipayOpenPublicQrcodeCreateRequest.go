@@ -24,11 +24,11 @@ type AlipayOpenPublicQrcodeCreateRequestBizContent struct {
 	ShowLogo     string   `json:"show_logo"`     // 二维码中间是否显示服务窗logo，Y：显示；N：不显示（默认）
 }
 
-func (this *AlipayOpenPublicQrcodeCreateRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicQrcodeCreateRequest) GetAPImethodName() string {
 	return "alipay.open.public.qrcode.create"
 }
 
-func (this *AlipayOpenPublicQrcodeCreateRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicQrcodeCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

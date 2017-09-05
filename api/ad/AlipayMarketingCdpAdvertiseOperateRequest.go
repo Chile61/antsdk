@@ -22,11 +22,11 @@ type AlipayMarketingCdpAdvertiseOperateRequestBizContent struct {
 	OperateType string `json:"operate_type"` // 操作类型，目前包括上线和下线，分别传入：online(ONLINE)和offline(OFFLINE)
 }
 
-func (this *AlipayMarketingCdpAdvertiseOperateRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCdpAdvertiseOperateRequest) GetAPImethodName() string {
 	return "alipay.marketing.cdp.advertise.operate"
 }
 
-func (this *AlipayMarketingCdpAdvertiseOperateRequest) GetApiVersion() string {
+func (this *AlipayMarketingCdpAdvertiseOperateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -22,11 +22,11 @@ type AlipayTradeCancelRequestBizContent struct {
 	TradeNo    string `json:"trade_no"`     // 支付宝交易号，和商户订单号不能同时为空
 }
 
-func (this *AlipayTradeCancelRequest) GetApiMethodName() string {
+func (this *AlipayTradeCancelRequest) GetAPImethodName() string {
 	return "alipay.trade.cancel"
 }
 
-func (this *AlipayTradeCancelRequest) GetApiVersion() string {
+func (this *AlipayTradeCancelRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -23,11 +23,11 @@ type KoubeiMarketingToolPrizesendAuthRequestBizContent struct {
 	UserId  string `json:"user_id"`  // 发奖用户ID
 }
 
-func (this *KoubeiMarketingToolPrizesendAuthRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingToolPrizesendAuthRequest) GetAPImethodName() string {
 	return "koubei.marketing.tool.prizesend.auth"
 }
 
-func (this *KoubeiMarketingToolPrizesendAuthRequest) GetApiVersion() string {
+func (this *KoubeiMarketingToolPrizesendAuthRequest) GetAPIversion() string {
 	return "1.0"
 }
 

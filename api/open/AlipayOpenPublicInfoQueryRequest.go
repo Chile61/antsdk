@@ -16,11 +16,11 @@ type AlipayOpenPublicInfoQueryRequest struct {
 	ReturnURL    string `json:"return_url"`
 }
 
-func (this *AlipayOpenPublicInfoQueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicInfoQueryRequest) GetAPImethodName() string {
 	return "alipay.open.public.info.query"
 }
 
-func (this *AlipayOpenPublicInfoQueryRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicInfoQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

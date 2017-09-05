@@ -21,11 +21,11 @@ type AlipayOpenPublicMessageSingleSendRequestBizContent struct {
 	Template Template `json:"template"`
 }
 
-func (this *AlipayOpenPublicMessageSingleSendRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicMessageSingleSendRequest) GetAPImethodName() string {
 	return "alipay.open.public.message.single.send"
 }
 
-func (this *AlipayOpenPublicMessageSingleSendRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicMessageSingleSendRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -23,11 +23,11 @@ type AlipayOpenAuthTokenAppRequestBizContent struct {
 	RefreshToken string `json:"refresh_token"` // 刷新令牌，如果grant_type值为refresh_token。该值不能为空。该值来源于此接口的返回值app_refresh_token（至少需要通过grant_type=authorization_code调用此接口一次才能获取）
 }
 
-func (this *AlipayOpenAuthTokenAppRequest) GetApiMethodName() string {
+func (this *AlipayOpenAuthTokenAppRequest) GetAPImethodName() string {
 	return "alipay.open.auth.token.app"
 }
 
-func (this *AlipayOpenAuthTokenAppRequest) GetApiVersion() string {
+func (this *AlipayOpenAuthTokenAppRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -25,11 +25,11 @@ type KoubeiMarketingCampaignActivityBatchqueryRequestBizContent struct {
 	PageSize       string      `json:"page_size"`       // 页大小，默认为20
 }
 
-func (this *KoubeiMarketingCampaignActivityBatchqueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignActivityBatchqueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.activity.batchquery"
 }
 
-func (this *KoubeiMarketingCampaignActivityBatchqueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignActivityBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

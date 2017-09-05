@@ -23,11 +23,11 @@ type AlipayEcoMycarParkingOrderUpdateRequestBizContent struct {
 	OrderStatus string `json:"order_status"` // 用户停车订单状态，0：成功，1：失败
 }
 
-func (this *AlipayEcoMycarParkingOrderUpdateRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingOrderUpdateRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.order.update"
 }
 
-func (this *AlipayEcoMycarParkingOrderUpdateRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingOrderUpdateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

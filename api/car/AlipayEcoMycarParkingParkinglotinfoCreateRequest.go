@@ -43,11 +43,11 @@ type AlipayEcoMycarParkingParkinglotinfoCreateRequestBizContent struct {
 	TimeOut               string `json:"time_out"`                // 用户支付未离场的超时时间(以分钟为单位)
 }
 
-func (this *AlipayEcoMycarParkingParkinglotinfoCreateRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingParkinglotinfoCreateRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.parkinglotinfo.create"
 }
 
-func (this *AlipayEcoMycarParkingParkinglotinfoCreateRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingParkinglotinfoCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

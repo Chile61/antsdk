@@ -23,11 +23,11 @@ type AlipayEcoMycarParkingExitinfoSyncRequestBizContent struct {
 	OutTime   string `json:"out_time"`   // 车辆离场时间，格式"YYYY-MM-DD HH:mm:ss"，24小时制
 }
 
-func (this *AlipayEcoMycarParkingExitinfoSyncRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingExitinfoSyncRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.exitinfo.sync"
 }
 
-func (this *AlipayEcoMycarParkingExitinfoSyncRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingExitinfoSyncRequest) GetAPIversion() string {
 	return "1.0"
 }
 

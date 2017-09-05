@@ -26,11 +26,11 @@ type AlipayOfflineProviderShopactionRecordRequestBizContent struct {
 	ActionOuterId string      `json:"action_outer_id"` // 本次请求的唯一键（操作实体主键+平台字符串）
 }
 
-func (this *AlipayOfflineProviderShopactionRecordRequest) GetApiMethodName() string {
+func (this *AlipayOfflineProviderShopactionRecordRequest) GetAPImethodName() string {
 	return "alipay.offline.provider.shopaction.record"
 }
 
-func (this *AlipayOfflineProviderShopactionRecordRequest) GetApiVersion() string {
+func (this *AlipayOfflineProviderShopactionRecordRequest) GetAPIversion() string {
 	return "1.0"
 }
 

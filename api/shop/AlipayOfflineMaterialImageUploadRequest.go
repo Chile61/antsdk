@@ -20,11 +20,11 @@ type AlipayOfflineMaterialImageUploadRequest struct {
 	ImagePid     string          `json:"image_pid"`     // 用于显示指定图片/视频所属的partnerId（支付宝内部使用，外部商户无需填写此字段）
 }
 
-func (this *AlipayOfflineMaterialImageUploadRequest) GetApiMethodName() string {
+func (this *AlipayOfflineMaterialImageUploadRequest) GetAPImethodName() string {
 	return "alipay.offline.material.image.upload"
 }
 
-func (this *AlipayOfflineMaterialImageUploadRequest) GetApiVersion() string {
+func (this *AlipayOfflineMaterialImageUploadRequest) GetAPIversion() string {
 	return "1.0"
 }
 

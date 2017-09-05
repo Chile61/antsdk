@@ -35,11 +35,11 @@ type AlipayEcoMycarParkingOrderSyncRequestBizContent struct {
 	CardNumber   string `json:"card_number"`    // 如果是停车卡缴费，则填入停车卡卡号，否则为'*'
 }
 
-func (this *AlipayEcoMycarParkingOrderSyncRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingOrderSyncRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.order.sync"
 }
 
-func (this *AlipayEcoMycarParkingOrderSyncRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingOrderSyncRequest) GetAPIversion() string {
 	return "1.0"
 }
 

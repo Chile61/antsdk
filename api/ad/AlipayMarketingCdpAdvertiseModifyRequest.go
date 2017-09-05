@@ -26,11 +26,11 @@ type AlipayMarketingCdpAdvertiseModifyRequestBizContent struct {
 	EndTime   string `json:"end_time"`   // 投放广告结束时间，使用标准时间格式：yyyy-MM-dd HH:mm:ss，如果不设置，默认投放时间一个月
 }
 
-func (this *AlipayMarketingCdpAdvertiseModifyRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCdpAdvertiseModifyRequest) GetAPImethodName() string {
 	return "alipay.marketing.cdp.advertise.modify"
 }
 
-func (this *AlipayMarketingCdpAdvertiseModifyRequest) GetApiVersion() string {
+func (this *AlipayMarketingCdpAdvertiseModifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

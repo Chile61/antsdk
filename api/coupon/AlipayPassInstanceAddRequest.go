@@ -24,11 +24,11 @@ type AlipayPassInstanceAddRequestBizContent struct {
 	RecognitionInfo string `json:"recognition_info"` // 支付宝用户识别信息： 包括partner_id（商户的签约账号）和out_trade_no
 }
 
-func (this *AlipayPassInstanceAddRequest) GetApiMethodName() string {
+func (this *AlipayPassInstanceAddRequest) GetAPImethodName() string {
 	return "alipay.pass.instance.add"
 }
 
-func (this *AlipayPassInstanceAddRequest) GetApiVersion() string {
+func (this *AlipayPassInstanceAddRequest) GetAPIversion() string {
 	return "1.0"
 }
 

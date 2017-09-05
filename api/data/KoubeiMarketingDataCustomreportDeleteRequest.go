@@ -21,11 +21,11 @@ type KoubeiMarketingDataCustomreportDeleteRequestBizContent struct {
 	ConditionKey string `json:"condition_key"` // 自定义报表规则的KEY
 }
 
-func (this *KoubeiMarketingDataCustomreportDeleteRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingDataCustomreportDeleteRequest) GetAPImethodName() string {
 	return "koubei.marketing.data.customreport.delete"
 }
 
-func (this *KoubeiMarketingDataCustomreportDeleteRequest) GetApiVersion() string {
+func (this *KoubeiMarketingDataCustomreportDeleteRequest) GetAPIversion() string {
 	return "1.0"
 }
 

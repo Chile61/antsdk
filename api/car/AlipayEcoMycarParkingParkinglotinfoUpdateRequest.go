@@ -41,11 +41,11 @@ type AlipayEcoMycarParkingParkinglotinfoUpdateRequestBizContent struct {
 	ContactAlipay         string `json:"contact_alipay"`          // 停车场联系人支付宝账户，如果有则填入
 }
 
-func (this *AlipayEcoMycarParkingParkinglotinfoUpdateRequest) GetApiMethodName() string {
+func (this *AlipayEcoMycarParkingParkinglotinfoUpdateRequest) GetAPImethodName() string {
 	return "alipay.eco.mycar.parking.parkinglotinfo.update"
 }
 
-func (this *AlipayEcoMycarParkingParkinglotinfoUpdateRequest) GetApiVersion() string {
+func (this *AlipayEcoMycarParkingParkinglotinfoUpdateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

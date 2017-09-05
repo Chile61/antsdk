@@ -35,11 +35,11 @@ type KoubeiMarketingCampaignActivityCreateRequestBizContent struct {
 	ExtInfo         string           `json:"ext_info"`         // 活动的扩展信息，无需设置
 }
 
-func (this *KoubeiMarketingCampaignActivityCreateRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignActivityCreateRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.activity.create"
 }
 
-func (this *KoubeiMarketingCampaignActivityCreateRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignActivityCreateRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -21,11 +21,11 @@ type AlipayOpenPublicGisQueryRequestBizContent struct {
 	UserId string `json:"user_id"` // 该用户的userId
 }
 
-func (this *AlipayOpenPublicGisQueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicGisQueryRequest) GetAPImethodName() string {
 	return "alipay.open.public.gis.query"
 }
 
-func (this *AlipayOpenPublicGisQueryRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicGisQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

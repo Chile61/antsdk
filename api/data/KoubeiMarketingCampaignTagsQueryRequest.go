@@ -14,11 +14,11 @@ type KoubeiMarketingCampaignTagsQueryRequest struct {
 	ReturnURL    string `json:"return_url"`
 }
 
-func (this *KoubeiMarketingCampaignTagsQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingCampaignTagsQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.campaign.tags.query"
 }
 
-func (this *KoubeiMarketingCampaignTagsQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingCampaignTagsQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

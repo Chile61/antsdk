@@ -21,11 +21,11 @@ type AlipayOpenPublicFollowBatchqueryRequestBizContent struct {
 	NextUserId string `json:"next_user_id"`
 }
 
-func (this *AlipayOpenPublicFollowBatchqueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicFollowBatchqueryRequest) GetAPImethodName() string {
 	return "alipay.open.public.follow.batchquery"
 }
 
-func (this *AlipayOpenPublicFollowBatchqueryRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicFollowBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

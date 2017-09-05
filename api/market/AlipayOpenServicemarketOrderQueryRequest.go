@@ -22,11 +22,11 @@ type AlipayOpenServicemarketOrderQueryRequestBizContent struct {
 	StartPage        string `json:"start_page"`         // 从第几页开始查询
 }
 
-func (this *AlipayOpenServicemarketOrderQueryRequest) GetApiMethodName() string {
+func (this *AlipayOpenServicemarketOrderQueryRequest) GetAPImethodName() string {
 	return "alipay.open.servicemarket.order.query"
 }
 
-func (this *AlipayOpenServicemarketOrderQueryRequest) GetApiVersion() string {
+func (this *AlipayOpenServicemarketOrderQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

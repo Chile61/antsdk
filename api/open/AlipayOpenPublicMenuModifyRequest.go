@@ -21,11 +21,11 @@ type AlipayOpenPublicMenuModifyRequestBizContent struct {
 	Button []ButtonObject `json:"button"` // 一级菜单数组，个数应为1~4个
 }
 
-func (this *AlipayOpenPublicMenuModifyRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicMenuModifyRequest) GetAPImethodName() string {
 	return "alipay.open.public.menu.modify"
 }
 
-func (this *AlipayOpenPublicMenuModifyRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicMenuModifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

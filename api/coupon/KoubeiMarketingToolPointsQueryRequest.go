@@ -22,11 +22,11 @@ type KoubeiMarketingToolPointsQueryRequestBizContent struct {
 	UserId          string `json:"user_id"`          // 用户ID
 }
 
-func (this *KoubeiMarketingToolPointsQueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingToolPointsQueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.tool.points.query"
 }
 
-func (this *KoubeiMarketingToolPointsQueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingToolPointsQueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

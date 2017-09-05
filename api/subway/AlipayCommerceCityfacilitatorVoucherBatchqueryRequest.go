@@ -22,11 +22,11 @@ type AlipayCommerceCityfacilitatorVoucherBatchqueryRequestBizContent struct {
 	TradeNos []string `json:"trade_nos"`
 }
 
-func (this *AlipayCommerceCityfacilitatorVoucherBatchqueryRequest) GetApiMethodName() string {
+func (this *AlipayCommerceCityfacilitatorVoucherBatchqueryRequest) GetAPImethodName() string {
 	return "alipay.commerce.cityfacilitator.voucher.batchquery"
 }
 
-func (this *AlipayCommerceCityfacilitatorVoucherBatchqueryRequest) GetApiVersion() string {
+func (this *AlipayCommerceCityfacilitatorVoucherBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

@@ -25,11 +25,11 @@ type ZhimaCreditWatchlistBriefGetRequestBizContent struct {
 	Name          string `json:"name"`           // 用户姓名 当证件类型为ALIPAY_USER_ID时不需要传入
 }
 
-func (this *ZhimaCreditWatchlistBriefGetRequest) GetApiMethodName() string {
+func (this *ZhimaCreditWatchlistBriefGetRequest) GetAPImethodName() string {
 	return "zhima.credit.watchlist.brief.get"
 }
 
-func (this *ZhimaCreditWatchlistBriefGetRequest) GetApiVersion() string {
+func (this *ZhimaCreditWatchlistBriefGetRequest) GetAPIversion() string {
 	return "1.0"
 }
 

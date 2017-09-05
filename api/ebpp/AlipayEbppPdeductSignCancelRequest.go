@@ -21,11 +21,11 @@ type AlipayEbppPdeductSignCancelRequest struct {
 	PayPasswordToken string `json:"pay_password_token"`
 }
 
-func (this *AlipayEbppPdeductSignCancelRequest) GetApiMethodName() string {
+func (this *AlipayEbppPdeductSignCancelRequest) GetAPImethodName() string {
 	return "alipay.ebpp.pdeduct.sign.cancel"
 }
 
-func (this *AlipayEbppPdeductSignCancelRequest) GetApiVersion() string {
+func (this *AlipayEbppPdeductSignCancelRequest) GetAPIversion() string {
 	return "1.0"
 }
 

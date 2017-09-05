@@ -20,11 +20,11 @@ type KoubeiMarketingDataCustomreportSaveRequestBizContent struct {
 	ReportConditionInfo CustomReportCondition `json:"report_condition_info"`
 }
 
-func (this *KoubeiMarketingDataCustomreportSaveRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingDataCustomreportSaveRequest) GetAPImethodName() string {
 	return "koubei.marketing.data.customreport.save"
 }
 
-func (this *KoubeiMarketingDataCustomreportSaveRequest) GetApiVersion() string {
+func (this *KoubeiMarketingDataCustomreportSaveRequest) GetAPIversion() string {
 	return "1.0"
 }
 

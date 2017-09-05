@@ -22,11 +22,11 @@ type KoubeiMarketingDataCustomreportBatchqueryRequestBizContent struct {
 	PageSize string `json:"page_size"` // 每页条目数，默认为20,最大为30
 }
 
-func (this *KoubeiMarketingDataCustomreportBatchqueryRequest) GetApiMethodName() string {
+func (this *KoubeiMarketingDataCustomreportBatchqueryRequest) GetAPImethodName() string {
 	return "koubei.marketing.data.customreport.batchquery"
 }
 
-func (this *KoubeiMarketingDataCustomreportBatchqueryRequest) GetApiVersion() string {
+func (this *KoubeiMarketingDataCustomreportBatchqueryRequest) GetAPIversion() string {
 	return "1.0"
 }
 

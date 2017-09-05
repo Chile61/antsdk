@@ -25,11 +25,11 @@ type AlipayMarketingCardDeleteRequestBizContent struct {
 	ExtInfo          string `json:"ext_info"`            // 删卡扩展参数，json格式。 用于商户的特定业务信息的传递，只有商户与支付宝约定了传递此参数且约定了参数含义，此参数才有效。 目前支持如下key： new_card_no：新卡号 donee_user_id：受赠人userId
 }
 
-func (this *AlipayMarketingCardDeleteRequest) GetApiMethodName() string {
+func (this *AlipayMarketingCardDeleteRequest) GetAPImethodName() string {
 	return "alipay.marketing.card.delete"
 }
 
-func (this *AlipayMarketingCardDeleteRequest) GetApiVersion() string {
+func (this *AlipayMarketingCardDeleteRequest) GetAPIversion() string {
 	return "1.0"
 }
 

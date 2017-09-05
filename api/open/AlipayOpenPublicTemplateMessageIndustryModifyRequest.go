@@ -24,11 +24,11 @@ type AlipayOpenPublicTemplateMessageIndustryModifyRequestBizContent struct {
 	SecondaryIndustryName string `json:"secondary_industry_name"` // 服务窗消息模板所属副行业一/二级名称
 }
 
-func (this *AlipayOpenPublicTemplateMessageIndustryModifyRequest) GetApiMethodName() string {
+func (this *AlipayOpenPublicTemplateMessageIndustryModifyRequest) GetAPImethodName() string {
 	return "alipay.open.public.template.message.industry.modify"
 }
 
-func (this *AlipayOpenPublicTemplateMessageIndustryModifyRequest) GetApiVersion() string {
+func (this *AlipayOpenPublicTemplateMessageIndustryModifyRequest) GetAPIversion() string {
 	return "1.0"
 }
 

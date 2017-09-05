@@ -28,11 +28,11 @@ type AlipayEbppPdeductPayRequest struct {
 	ExtendField  string  `json:"extend_field"`
 }
 
-func (this *AlipayEbppPdeductPayRequest) GetApiMethodName() string {
+func (this *AlipayEbppPdeductPayRequest) GetAPImethodName() string {
 	return "alipay.ebpp.pdeduct.pay"
 }
 
-func (this *AlipayEbppPdeductPayRequest) GetApiVersion() string {
+func (this *AlipayEbppPdeductPayRequest) GetAPIversion() string {
 	return "1.0"
 }
 
