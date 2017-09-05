@@ -1,59 +1,24 @@
 package util
 
-import (
-	"github.com/vanishs/antsdk/api"
-	"github.com/vanishs/antsdk/utils"
-)
-
+// AlipaySystemOauthTokenRequest alipay.system.oauth.token(换取授权访问令牌)
 // 换取授权访问令牌
 type AlipaySystemOauthTokenRequest struct {
-	api.IAlipayRequest
-	TerminalType string `json:"terminal_type"`
-	TerminalInfo string `json:"terminal_info"`
-	ProdCode     string `json:"prod_code"`
-	NotifyURL    string `json:"notify_url"`
-	ReturnURL    string `json:"return_url"`
-	GrantType    string `json:"grant_type"`
-	Code         string `json:"code"`
-	RefreshToken string `json:"refresh_token"`
+	GrantType    string `json:"grant_type"`    // 必选 值为authorization_code时，代表用code换取；值为refresh_token时，代表用refresh_token换取
+	Code         string `json:"code"`          // 可选 授权码，用户对应用授权后得到。
+	RefreshToken string `json:"refresh_token"` // 可选 刷新令牌，上次换取访问令牌时得到。见出参的refresh_token字段
 }
 
-func (this *AlipaySystemOauthTokenRequest) GetAPImethodName() string {
+// GetAPImethodName GetAPImethodName
+func (requ *AlipaySystemOauthTokenRequest) GetAPImethodName() string {
 	return "alipay.system.oauth.token"
 }
 
-func (this *AlipaySystemOauthTokenRequest) GetAPIversion() string {
-	return "1.0"
-}
-
-func (this *AlipaySystemOauthTokenRequest) GetTerminalType() string {
-	return this.TerminalType
-}
-
-func (this *AlipaySystemOauthTokenRequest) GetTerminalInfo() string {
-	return this.TerminalInfo
-}
-
-func (this *AlipaySystemOauthTokenRequest) GetNotifyURL() string {
-	return this.NotifyURL
-}
-
-func (this *AlipaySystemOauthTokenRequest) GetReturnURL() string {
-	return this.ReturnURL
-}
-
-func (this *AlipaySystemOauthTokenRequest) GetProdCode() string {
-	return this.ProdCode
-}
-
-func (this *AlipaySystemOauthTokenRequest) IsNeedEncrypt() bool {
+// IsNeedEncrypt IsNeedEncrypt
+func (requ *AlipaySystemOauthTokenRequest) IsNeedEncrypt() bool {
 	return false
 }
 
-func (this *AlipaySystemOauthTokenRequest) GetTextParams() *utils.AlipayHashMap {
-	txtParams := utils.NewAlipayHashMap()
-	txtParams.Put("code", this.Code)
-	txtParams.Put("grant_type", this.GrantType)
-	txtParams.Put("refresh_token", this.RefreshToken)
-	return txtParams
+// IsNeedBizContent IsNeedBizContent
+func (requ *AlipaySystemOauthTokenRequest) IsNeedBizContent() bool {
+	return false
 }

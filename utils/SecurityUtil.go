@@ -15,18 +15,6 @@ import (
 	"sort"
 )
 
-var hash crypto.Hash
-
-// SetHash SetHash
-func SetHash(t string) {
-	switch t {
-	case "RSA":
-		hash = crypto.SHA1
-	case "RSA2":
-		hash = crypto.SHA256
-	}
-}
-
 // GetSignMap 获取参数map
 func GetSignMap(requestHolder *RequestParametersHolder) map[string]string {
 	singleMap := make(map[string]string)
@@ -39,12 +27,6 @@ func GetSignMap(requestHolder *RequestParametersHolder) map[string]string {
 
 	if requestHolder.ProtocalMustParams.Length > 0 {
 		for k, v := range requestHolder.ProtocalMustParams.GetMap() {
-			singleMap[k] = v
-		}
-	}
-
-	if requestHolder.ProtocalOptParams.Length > 0 {
-		for k, v := range requestHolder.ProtocalOptParams.GetMap() {
 			singleMap[k] = v
 		}
 	}
@@ -77,7 +59,7 @@ func GetSignStr(m map[string]string) string {
 }
 
 // Sign 签名
-func Sign(mReq map[string]string, privateKey []byte) (string, error) {
+func Sign(mReq map[string]string, privateKey []byte, hash crypto.Hash) (string, error) {
 
 	// 获取待签名参数
 	signStr := GetSignStr(mReq)
@@ -94,11 +76,11 @@ func Sign(mReq map[string]string, privateKey []byte) (string, error) {
 
 	pKey := prk8.(*rsa.PrivateKey)
 
-	return RSASign(signStr, pKey)
+	return RSASign(signStr, pKey, hash)
 }
 
 // RSASign RSA签名
-func RSASign(origData string, privateKey *rsa.PrivateKey) (string, error) {
+func RSASign(origData string, privateKey *rsa.PrivateKey, hash crypto.Hash) (string, error) {
 	h := hash.New()
 	h.Write([]byte(origData))
 	digest := h.Sum(nil)
@@ -112,12 +94,12 @@ func RSASign(origData string, privateKey *rsa.PrivateKey) (string, error) {
 }
 
 // SyncVerifySign 同步返回验签
-func SyncVerifySign(sign string, body, alipayPublicKey []byte) (bool, error) {
-	return RSAVerify(body, []byte(sign), alipayPublicKey)
+func SyncVerifySign(sign string, body, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
+	return RSAVerify(body, []byte(sign), alipayPublicKey, hash)
 }
 
 // AsyncVerifySign 异步返回验签
-func AsyncVerifySign(body, alipayPublicKey []byte) (bool, error) {
+func AsyncVerifySign(body, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
 	data, err := url.ParseQuery(string(body))
 	if err != nil {
 		return false, err
@@ -138,11 +120,11 @@ func AsyncVerifySign(body, alipayPublicKey []byte) (bool, error) {
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	return RSAVerify([]byte(signStr), []byte(sign), alipayPublicKey)
+	return RSAVerify([]byte(signStr), []byte(sign), alipayPublicKey, hash)
 }
 
 // RSAVerify RSA 验证
-func RSAVerify(src, sign, alipayPublicKey []byte) (bool, error) {
+func RSAVerify(src, sign, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
 	// 加载RSA的公钥
 	block, _ := pem.Decode(alipayPublicKey)
 	pub, err := x509.ParsePKIXPublicKey(block.Bytes)

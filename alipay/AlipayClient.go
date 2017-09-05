@@ -1,11 +1,10 @@
 package alipay
 
 import (
-	"bytes"
+	"crypto"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
-	"mime/multipart"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -22,29 +21,42 @@ type Client struct {
 	serverURL       string
 	appID           string
 	privateKey      string
-	prodCode        string
 	format          string
 	signType        string
-	encryptType     string
-	encryptKey      string
 	alipayPublicKey string
+	encryptType     string
 	charset         string
+	encryptKey      string
+	hash            crypto.Hash
 }
 
 // NewDefaultClient 创建一个默认的Client，可以构建相关struct后调用Execute执行该功能
 func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, signtype string) *Client {
 
-	utils.SetHash(signtype)
+	var hash crypto.Hash
+
+	switch signtype {
+	case "RSA":
+		hash = crypto.SHA1
+	case "RSA2":
+		hash = crypto.SHA256
+	default:
+		hash = crypto.SHA256
+		signtype = "RSA2"
+	}
 
 	return &Client{
 		serverURL:       serverURL,
 		appID:           appID,
 		privateKey:      privateKey,
-		alipayPublicKey: alipayPublicKey,
-		format:          ConstFormatJSON,
+		format:          constFormatJSON,
 		signType:        signtype,
-		encryptType:     ConstEncryptTypeAES,
+		alipayPublicKey: alipayPublicKey,
+		encryptType:     constEncryptTypeAES,
+		charset:         constCharsetUTF8,
+		hash:            hash,
 	}
+
 }
 
 // Execute 传递相关request,response struct指针，执行相关方法并且返回结果
@@ -80,7 +92,7 @@ func (c *Client) ExecuteWithAppAuthToken(request, response interface{}, accessTo
 	sign := signMatchRes[1]
 
 	// 验证签名
-	isOk, err := utils.SyncVerifySign(sign, []byte(result), []byte(c.alipayPublicKey))
+	isOk, err := utils.SyncVerifySign(sign, []byte(result), []byte(c.alipayPublicKey), c.hash)
 	if err != nil {
 		return err
 	}
@@ -100,9 +112,6 @@ func (c *Client) doPost(request interface{}, accessToken, appAuthToken string) (
 
 	reqURL := c.getRequestURL(requestHolder)
 
-	if fileReq, ok := request.(api.IAlipayUploadRequest); ok {
-		return c.postFileRequest(reqURL, requestHolder.ApplicationParams.GetMap(), fileReq.GetFileParams())
-	}
 	return c.postRequest(reqURL, requestHolder.ApplicationParams.GetMap())
 }
 
@@ -118,46 +127,8 @@ func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, e
 	reqParams := ioutil.NopCloser(strings.NewReader(data.Encode()))
 	var client http.Client
 	req, _ := http.NewRequest("POST", reqURL, reqParams)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded;param=value")
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded;charset="+c.charset)
 
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	return ioutil.ReadAll(resp.Body)
-}
-
-func (c *Client) postFileRequest(reqURL string, params map[string]string, fileParams map[string]*utils.FileItem) ([]byte, error) {
-	if fileParams == nil || len(fileParams) == 0 {
-		return c.postRequest(reqURL, params)
-	}
-
-	b := &bytes.Buffer{}
-	w := multipart.NewWriter(b)
-
-	if params != nil && len(params) > 0 {
-		for k, v := range params {
-			w.WriteField(k, v)
-		}
-	}
-
-	for k, v := range fileParams {
-		fw, err := w.CreateFormFile(k, v.FileName)
-		if err != nil {
-			return nil, err
-		}
-		fw.Write(v.Content)
-	}
-	w.Close()
-
-	req, err := http.NewRequest("POST", reqURL, b)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("Content-Type", w.FormDataContentType())
-	var client http.Client
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
@@ -171,77 +142,124 @@ func (c *Client) getRequestURL(requestHolder *utils.RequestParametersHolder) str
 	sbURL := utils.NewStringBuilder()
 	sbURL.Append(c.serverURL)
 	sysMustQuery := utils.BuildQuery(requestHolder.ProtocalMustParams.GetMap())
-	sysOptQuery := utils.BuildQuery(requestHolder.ProtocalOptParams.GetMap())
 
 	sbURL.Append("?")
 	sbURL.Append(sysMustQuery)
-	if sysOptQuery != "" {
-		sbURL.Append("&")
-		sbURL.Append(sysOptQuery)
-	}
 
 	return sbURL.ToString()
 }
 
+func getBizTextParams(request api.IAlipayRequest) *utils.AlipayHashMap {
+
+	retval := utils.NewAlipayHashMap()
+	retval.Put("biz_content", utils.ToJSON(request))
+	return retval
+
+}
+
+func getTextParams(request api.IAlipayRequest) *utils.AlipayHashMap {
+
+	retval := utils.NewAlipayHashMap()
+
+	t := reflect.TypeOf(request).Elem()
+	v := reflect.ValueOf(request).Elem()
+
+	for i := 0; i < v.NumField(); i++ {
+		retval.Put(t.Field(i).Tag.Get("json"), v.Field(i).Interface())
+	}
+
+	return retval
+
+}
+
+func getParams(request api.IAlipayRequest) *utils.AlipayHashMap {
+	if request.IsNeedBizContent() {
+		return getBizTextParams(request)
+	}
+	return getTextParams(request)
+
+}
+
 func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToken, appAuthToken string) (*utils.RequestParametersHolder, error) {
 	requestHolder := utils.NewRequestParametersHolder()
-	appParams := request.GetTextParams()
+
+	applicationParams := getParams(request)
 
 	// 只有新接口和设置密钥才能支持加密
 	if request.IsNeedEncrypt() {
-		if appParams.Get(constBizContentKey) == "" {
+		if !request.IsNeedBizContent() {
 			return nil, errors.New("当前API不支持加密请求")
 		}
+
 		// 需要加密必须设置密钥和加密算法
 		if c.encryptKey == "" || c.encryptType == "" {
 			return nil, errors.New("API请求要求加密，则必须设置密钥和密钥类型：encryptKey=" + c.encryptKey + ",encryptType=" + c.encryptType)
 		}
 
-		encryptContent, err := utils.EncryptContent(appParams.Get(constBizContentKey), c.encryptType, c.encryptKey)
+		encryptContent, err := utils.EncryptContent(applicationParams.Get(constBizContentKey), c.encryptType, c.encryptKey)
 		if err != nil {
 			return nil, err
 		}
 
-		appParams.Put(constBizContentKey, encryptContent)
-	}
-
-	if appAuthToken != "" {
-		appParams.Put(constAppAuthTokenKey, appAuthToken)
-	}
-
-	requestHolder.ApplicationParams = appParams
-
-	if c.charset == "" {
-		c.charset = ConstCharsetUTF8
+		applicationParams.Put(constBizContentKey, encryptContent)
 	}
 
 	protocalMustParams := utils.NewAlipayHashMap()
-	protocalMustParams.Put(constMethodKey, request.GetAPImethodName())
-	protocalMustParams.Put(constVersionKey, request.GetAPIversion())
+
 	protocalMustParams.Put(constAppIDKey, c.appID)
 	protocalMustParams.Put(constSignTypeKey, c.signType)
-	protocalMustParams.Put(constTerminalTypeKey, request.GetTerminalType())
-	protocalMustParams.Put(constTerminalInfoKey, request.GetTerminalInfo())
-	protocalMustParams.Put(constNotifyURLKey, request.GetNotifyURL())
-	protocalMustParams.Put(constReturnURLKey, request.GetReturnURL())
 	protocalMustParams.Put(constCharsetKey, c.charset)
+	protocalMustParams.Put(constFormatKey, c.format)
+	protocalMustParams.Put(constMethodKey, request.GetAPImethodName())
+	protocalMustParams.Put(constVersionKey, constVersionVal)
+	protocalMustParams.Put(constTimestampKey, time.Now().Format("2006-01-02 15:04:05"))
+	protocalMustParams.Put(constAlipaySDKKey, constSDKversion)
+
+	returnURL, ok := request.(interface{}).(*api.ReturnURL)
+	if ok {
+		protocalMustParams.Put(constReturnURLKey, returnURL.GetReturnURL())
+	}
+
+	notifyURL, ok := request.(interface{}).(*api.NotifyURL)
+	if ok {
+		protocalMustParams.Put(constNotifyURLKey, notifyURL.GetNotifyURL())
+	}
+
+	prodCode, ok := request.(interface{}).(*api.ProdCode)
+	if ok {
+		protocalMustParams.Put(constProdCodeKey, prodCode.GetProdCode())
+	}
+
+	terminalInfo, ok := request.(interface{}).(*api.TerminalInfo)
+	if ok {
+		protocalMustParams.Put(constTerminalInfoKey, terminalInfo.GetTerminalInfo())
+	}
+
+	terminalType, ok := request.(interface{}).(*api.TerminalType)
+	if ok {
+		protocalMustParams.Put(constTerminalTypeKey, terminalType.GetTerminalType())
+	}
 
 	if request.IsNeedEncrypt() {
 		protocalMustParams.Put(constEncryptTypeKey, c.encryptType)
 	}
-	protocalMustParams.Put(constTimestampKey, time.Now().Format("2006-01-02 15:04:05"))
-	requestHolder.ProtocalMustParams = protocalMustParams
 
-	protocalOptParams := utils.NewAlipayHashMap()
-	protocalOptParams.Put(constFormatKey, c.format)
-	protocalOptParams.Put(constAccessTokenKey, accessToken)
-	protocalOptParams.Put(constAlipaySDKKey, ConstSDKversion)
-	protocalOptParams.Put(constProdCodeKey, request.GetProdCode())
-	requestHolder.ProtocalOptParams = protocalOptParams
+	if "" != accessToken {
+		protocalMustParams.Put(constAccessTokenKey, accessToken)
+	}
+
+	if "" != appAuthToken {
+		protocalMustParams.Put(constAppAuthTokenKey, appAuthToken)
+	}
+
+	// to sign
+
+	requestHolder.ApplicationParams = applicationParams
+	requestHolder.ProtocalMustParams = protocalMustParams
 
 	if c.signType != "" {
 		signMap := utils.GetSignMap(requestHolder)
-		sign, err := utils.Sign(signMap, []byte(c.privateKey))
+		sign, err := utils.Sign(signMap, []byte(c.privateKey), c.hash)
 		if err != nil {
 			return nil, err
 		}
