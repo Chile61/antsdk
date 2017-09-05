@@ -16,7 +16,7 @@ const (
 	// ConstFormatJSON xml编码格式用于constFormatKey(当前默认值)
 	ConstFormatJSON = "json"
 	// ConstFormatXML xml编码格式用于constFormatKey(当前不支持)
-	ConstFormatXML = "xml"
+	// ConstFormatXML = "xml"
 
 	// ConstSDKversion SDK版本,用于constVersionKey
 	ConstSDKversion = "alipay-sdk-go"
