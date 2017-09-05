@@ -4,10 +4,11 @@ import (
 	"github.com/vanishs/antsdk/api"
 )
 
+// AlipayUserUserinfoShareResponse alipay.user.userinfo.share(支付宝钱包用户信息共享) 返回
 type AlipayUserUserinfoShareResponse struct {
 	api.AlipayResponse
 	Avatar                string                     `json:"avatar"`                  // 用户头像
-	UserId                string                     `json:"user_id"`                 // 用户的userId
+	UserID                string                     `json:"user_id"`                 // 用户的userId
 	UserTypeValue         string                     `json:"user_type_value"`         // 用户类型（1/2） 1代表公司账户2代表个人账户
 	UserStatus            string                     `json:"user_status"`             // 用户状态（Q/T/B/W）。 Q代表快速注册用户 T代表已认证用户 B代表被冻结账户 W代表已注册，未激活的账户
 	FirmName              string                     `json:"firm_name"`               // 公司名称（用户类型是公司类型时公司名称才有此字段）。
@@ -19,7 +20,7 @@ type AlipayUserUserinfoShareResponse struct {
 	Mobile                string                     `json:"mobile"`                  // 手机号码。
 	IsCertified           string                     `json:"is_certified"`            // 是否通过实名认证。T是通过 F是没有实名认证
 	IsBankAuth            string                     `json:"is_bank_auth"`            // T为是银行卡认证，F为非银行卡认证。
-	IsIdAuth              string                     `json:"is_id_auth"`              // T为是身份证认证，F为非身份证认证。
+	IsIDAuth              string                     `json:"is_id_auth"`              // T为是身份证认证，F为非身份证认证。
 	IsMobileAuth          string                     `json:"is_mobile_auth"`          // T为是手机认证，F为非手机认证。
 	IsLicenceAuth         string                     `json:"is_licence_auth"`         // T为通过营业执照认证，F为没有通过
 	CertTypeValue         string                     `json:"cert_type_value"`         // 0:身份证 1:护照 2:军官证 3:士兵证 4:回乡证 5:临时身份证 6:户口簿 7:警官证 8:台胞证 9:营业执照 10其它证件
@@ -39,7 +40,7 @@ type AlipayUserUserinfoShareResponse struct {
 	AddressCode           string                     `json:"address_code"`            // 区域编码，暂时不返回值
 	IsStudentCertified    string                     `json:"is_student_certified"`    // 是否是学生
 	IsCertifyGradeA       string                     `json:"is_certify_grade_a"`      // T：表示A类实名认证；F：表示非A类实名认证
-	AlipayUserId          string                     `json:"alipay_user_id"`          // 支付宝用户ID
+	AlipayUserID          string                     `json:"alipay_user_id"`          // 支付宝用户ID
 	Birthday              string                     `json:"birthday"`                // 用户生日
 	NickName              string                     `json:"nick_name"`               // 用户昵称
 	FamilyName            string                     `json:"family_name"`             // 姓氏，取的是realName中的首个字符，对非中文、中文复姓支持较差。

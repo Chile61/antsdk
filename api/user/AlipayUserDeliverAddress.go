@@ -1,5 +1,6 @@
 package user
 
+// AlipayUserDeliverAddress 用户收货地址
 type AlipayUserDeliverAddress struct {
 	DeliverFullname       string `json:"deliver_fullname"`        // 收货人全名
 	DefaultDeliverAddress string `json:"default_deliver_address"` // 是否默认收货地址

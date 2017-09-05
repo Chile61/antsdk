@@ -4,9 +4,10 @@ import (
 	"github.com/vanishs/antsdk/api"
 )
 
+// AlipayUserInfoShareResponse alipay.user.info.share(支付宝会员授权信息查询接口) 返回
 type AlipayUserInfoShareResponse struct {
 	api.AlipayResponse
-	UserId                        string                     `json:"user_id"`                            // 用户的userId
+	UserID                        string                     `json:"user_id"`                            // 用户的userId
 	Avatar                        string                     `json:"avatar"`                             // 用户头像
 	Phone                         string                     `json:"phone"`                              // 电话号码。
 	UserType                      string                     `json:"user_type"`                          // 用户类型（1/2） 1代表公司账户2代表个人账户
@@ -48,6 +49,7 @@ type AlipayUserInfoShareResponse struct {
 	DeliverAddresses              []AlipayUserDeliverAddress `json:"deliver_addresses"`                  // 收货地址列表
 }
 
+// AlipayUserPicture AlipayUserPicture
 type AlipayUserPicture struct {
 	PictureURL  string `json:"picture_url"`  // 用于调用alipay.user.certify.image.fetch接口，获取图片资源
 	PictureType string `json:"picture_type"` // 图片类型，包括身份证正反面、营业执照等
