@@ -1,12 +1,10 @@
 package user
 
-import (
-	"github.com/vanishs/antsdk/api"
-)
+import "github.com/vanishs/antsdk/api"
 
 // AlipayUserInfoShareResponse alipay.user.info.share(支付宝会员授权信息查询接口) 返回
 type AlipayUserInfoShareResponse struct {
-	api.AlipayResponse
+	E                  api.Exception
 	UserID             string `json:"user_id"`              // 用户的userId
 	Avatar             string `json:"avatar"`               // 用户头像
 	UserType           string `json:"user_type"`            // 用户类型（1/2） 1代表公司账户2代表个人账户
@@ -17,4 +15,12 @@ type AlipayUserInfoShareResponse struct {
 	NickName           string `json:"nick_name"`            // 用户昵称
 	IsStudentCertified string `json:"is_student_certified"` // 是否是学生
 	Gender             string `json:"gender"`               // 性别（F：女性；M：男性）
+}
+
+// SetTags SetTags
+func (resp *AlipayUserInfoShareResponse) SetTags() (successTag string, exceptionTag string, e *api.Exception) {
+	successTag = "alipay_user_info_share_response"
+	exceptionTag = "error_response"
+	e = &resp.E
+	return
 }

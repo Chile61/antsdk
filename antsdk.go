@@ -1,10 +1,10 @@
-package alipay
+package antsdk
 
 import (
 	"crypto"
-	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -12,18 +12,70 @@ import (
 	"strings"
 	"time"
 
+	"github.com/tidwall/gjson"
 	"github.com/vanishs/antsdk/api"
 	"github.com/vanishs/antsdk/utils"
+)
+
+const (
+
+	// ConstProdGateway ConstProdGateway
+	ConstProdGateway = "https://openapi.alipay.com/gateway.do"
+	// ConstDeveGateway ConstDeveGateway
+	ConstDeveGateway = "https://openapi.alipaydev.com/gateway.do"
+
+	// ConstSignTypeRSA RSA签名算法，用于constSignTypeKey
+	ConstSignTypeRSA = "RSA"
+	// ConstSignTypeRSA2 RSA2签名算法，用于constSignTypeKey(当前默认值)
+	ConstSignTypeRSA2 = "RSA2"
+
+	// constCharsetUTF8 utf8字符编码格式
+	constCharsetUTF8 = "UTF-8"
+	// constFormatJSON xml编码格式
+	constFormatJSON = "json"
+	// constSDKversion SDK版本
+	constSDKversion = "alipay-sdk-go-mini"
+	// constEncryptTypeAES 加密类型
+	constEncryptTypeAES = "AES"
+	// constVersionVal 当前API版本
+	constVersionVal = "1.0"
+
+	constSignTypeKey     = "sign_type"
+	constAppIDKey        = "app_id"
+	constFormatKey       = "format"
+	constMethodKey       = "method"
+	constTimestampKey    = "timestamp"
+	constVersionKey      = "version"
+	constSignKey         = "sign"
+	constAlipaySDKKey    = "alipay_sdk"
+	constAccessTokenKey  = "auth_token"
+	constAppAuthTokenKey = "app_auth_token"
+	constCharsetKey      = "charset"
+	constEncryptTypeKey  = "encrypt_type"
+	constBizContentKey   = "biz_content"
+	constProdCodeKey     = "prod_code"
+	constTerminalTypeKey = "terminal_type"
+	constTerminalInfoKey = "terminal_info"
+	constNotifyURLKey    = "notify_url"
+	constReturnURLKey    = "return_url"
+
+	// ConstSignAlgorithms       = "SHA1WithRSA"
+	// ConstSignAlgorithmsSHA256 = "SHA256WithRSA"
+	// ConstDataTimeFormat       = "yyyy-MM-dd HH:mm:ss"
+	// ConstDataTimezone         = "GMT+8"
+	// ConstErrorRespone         = "error_response"
+	// ConstResponeSuffix        = "_response"
+	// ConstResponeXMLencryptNodeName = "response_encrypted"
 )
 
 // Client 是用户接口，使用NewDefaultClient可以创建一个默认的接口
 type Client struct {
 	serverURL       string
 	appID           string
-	privateKey      string
+	privatePKCS8B64 string
 	format          string
 	signType        string
-	alipayPublicKey string
+	publicPKCS8B64  string
 	encryptType     string
 	charset         string
 	encryptKey      string
@@ -31,7 +83,7 @@ type Client struct {
 }
 
 // NewDefaultClient 创建一个默认的Client，可以构建相关struct后调用Execute执行该功能
-func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, signtype string) *Client {
+func NewDefaultClient(serverURL, appID, privatePKCS8B64, publicPKCS8B64 string, signtype string) *Client {
 
 	var hash crypto.Hash
 
@@ -48,10 +100,10 @@ func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, sign
 	return &Client{
 		serverURL:       serverURL,
 		appID:           appID,
-		privateKey:      privateKey,
+		privatePKCS8B64: privatePKCS8B64,
 		format:          constFormatJSON,
 		signType:        signtype,
-		alipayPublicKey: alipayPublicKey,
+		publicPKCS8B64:  publicPKCS8B64,
 		encryptType:     constEncryptTypeAES,
 		charset:         constCharsetUTF8,
 		hash:            hash,
@@ -60,24 +112,27 @@ func NewDefaultClient(serverURL, appID, privateKey, alipayPublicKey string, sign
 }
 
 // Execute 传递相关request,response struct指针，执行相关方法并且返回结果
-func (c *Client) Execute(request, response interface{}) error {
+func (c *Client) Execute(request api.IAlipayRequest, response api.IAlipayResponse) error {
 	return c.ExecuteWithAccessToken(request, response, "")
 }
 
 // ExecuteWithAccessToken 使用accessToken传递相关request,response struct指针，执行相关方法并且返回结果
-func (c *Client) ExecuteWithAccessToken(request, response interface{}, accessToken string) error {
+func (c *Client) ExecuteWithAccessToken(request api.IAlipayRequest, response api.IAlipayResponse, accessToken string) error {
 	return c.ExecuteWithAppAuthToken(request, response, accessToken, "")
 }
 
 // ExecuteWithAppAuthToken 使用appAuthToken,accessToken传递相关request,response struct指针，执行相关方法并且返回结果
-func (c *Client) ExecuteWithAppAuthToken(request, response interface{}, accessToken, appAuthToken string) error {
+func (c *Client) ExecuteWithAppAuthToken(request api.IAlipayRequest, response api.IAlipayResponse, accessToken, appAuthToken string) error {
+	log.Println("#######")
+
 	bResult, err := c.doPost(request, accessToken, appAuthToken)
 	if err != nil {
 		return err
 	}
-
+	log.Println("000000000")
 	// 验签
 	strResp := string(bResult)
+	log.Println(strResp)
 
 	// 正则验签
 	expResult := `(^\{\"[a-z|_]+\":)|(,\"sign\":\"[a-zA-Z0-9|\+|\/|\=]+\"\}$)`
@@ -90,22 +145,61 @@ func (c *Client) ExecuteWithAppAuthToken(request, response interface{}, accessTo
 		return errors.New("验签失败:签名丢失")
 	}
 	sign := signMatchRes[1]
+	log.Println("111111111", sign)
+
+	///////////////////////////////////////////////////////
+	s, e, ex := response.SetTags()
+	log.Printf("AAAAAAAAAA [%s] [%s]\n", sign, result)
+	value := gjson.Get(strResp, e)
+
+	errjsonstr := value.String()
+	log.Println("2222222", errjsonstr)
+	if "" != errjsonstr {
+
+		err = gjson.Unmarshal([]byte(errjsonstr), ex)
+		if err != nil {
+			log.Println("AAAAAAAAAB")
+			return err
+		}
+		log.Println("33333333333")
+		if !ex.IsSuccess() {
+			return nil
+		}
+
+	}
+	log.Println("4444444444")
+	value = gjson.Get(strResp, s)
+
+	okjsonstr := value.String()
+	if "" == okjsonstr {
+		return errors.New("json value is empty")
+	}
+	log.Println("5555555555")
+	err = gjson.Unmarshal([]byte(okjsonstr), response)
+	if err != nil {
+		log.Println("BBBBBBBB")
+		return err
+	}
+	log.Println("666666666666")
+
+	///////////////////////////////////////////////////////
 
 	// 验证签名
-	isOk, err := utils.SyncVerifySign(sign, []byte(result), []byte(c.alipayPublicKey), c.hash)
+	isOk, err := utils.SyncVerifySign(sign, []byte(result), []byte(c.publicPKCS8B64), c.hash)
 	if err != nil {
 		return err
 	}
-
+	log.Println("!!!!!!!!")
 	if !isOk {
-		return errors.New("验签失败:签名错误")
+		return errors.New("sign fail:sign error")
 	}
+	log.Println("@@@@@@@@@")
 
-	return json.Unmarshal([]byte(result), &response)
+	return nil
 }
 
-func (c *Client) doPost(request interface{}, accessToken, appAuthToken string) ([]byte, error) {
-	requestHolder, err := c.getRequestHolderWithSign(reflect.ValueOf(request).Interface().(api.IAlipayRequest), accessToken, appAuthToken)
+func (c *Client) doPost(request api.IAlipayRequest, accessToken, appAuthToken string) ([]byte, error) {
+	requestHolder, err := c.getRequestHolderWithSign(request, accessToken, appAuthToken)
 	if err != nil {
 		return nil, err
 	}
@@ -116,6 +210,7 @@ func (c *Client) doPost(request interface{}, accessToken, appAuthToken string) (
 }
 
 func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, error) {
+
 	data := &url.Values{}
 
 	for k, v := range params {
@@ -123,6 +218,8 @@ func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, e
 			data.Set(k, v)
 		}
 	}
+
+	log.Println("xxx:", reqURL, data.Encode())
 
 	reqParams := ioutil.NopCloser(strings.NewReader(data.Encode()))
 	var client http.Client
@@ -259,7 +356,7 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToke
 
 	if c.signType != "" {
 		signMap := utils.GetSignMap(requestHolder)
-		sign, err := utils.Sign(signMap, []byte(c.privateKey), c.hash)
+		sign, err := utils.Sign(signMap, []byte(c.privatePKCS8B64), c.hash)
 		if err != nil {
 			return nil, err
 		}

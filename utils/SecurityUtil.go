@@ -5,11 +5,11 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
-	"encoding/pem"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/url"
 	"os"
 	"sort"
@@ -59,17 +59,17 @@ func GetSignStr(m map[string]string) string {
 }
 
 // Sign 签名
-func Sign(mReq map[string]string, privateKey []byte, hash crypto.Hash) (string, error) {
+func Sign(mReq map[string]string, privatePKCS8B64 []byte, hash crypto.Hash) (string, error) {
 
 	// 获取待签名参数
 	signStr := GetSignStr(mReq)
 
-	block, _ := pem.Decode(privateKey)
-	if block == nil {
-		return "", errors.New("Sign private key decode error")
+	block, err := base64.StdEncoding.DecodeString(string(privatePKCS8B64))
+	if err != nil {
+		return "", err
 	}
 
-	prk8, err := x509.ParsePKCS8PrivateKey(block.Bytes)
+	prk8, err := x509.ParsePKCS8PrivateKey(block)
 	if err != nil {
 		return "", err
 	}
@@ -90,6 +90,7 @@ func RSASign(origData string, privateKey *rsa.PrivateKey, hash crypto.Hash) (str
 		return "", err
 	}
 	data := base64.StdEncoding.EncodeToString(s)
+
 	return string(data), nil
 }
 
@@ -124,14 +125,24 @@ func AsyncVerifySign(body, alipayPublicKey []byte, hash crypto.Hash) (bool, erro
 }
 
 // RSAVerify RSA 验证
-func RSAVerify(src, sign, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
+func RSAVerify(src, sign, publicPKCS8B64 []byte, hash crypto.Hash) (bool, error) {
+
 	// 加载RSA的公钥
-	block, _ := pem.Decode(alipayPublicKey)
-	pub, err := x509.ParsePKIXPublicKey(block.Bytes)
+	log.Println(string(sign), string(src))
+	// publicPKCS8B64[0] = 0
+	block, err := base64.StdEncoding.DecodeString(string(publicPKCS8B64))
 	if err != nil {
 		return false, err
 	}
-	rsaPub, _ := pub.(*rsa.PublicKey)
+
+	pub, err := x509.ParsePKIXPublicKey(block)
+	if err != nil {
+		return false, err
+	}
+	rsaPub, ok := pub.(*rsa.PublicKey)
+	if !ok {
+		return false, errors.New("err publickey")
+	}
 
 	// 计算代签名字串的哈希
 	t := hash.New()
@@ -139,9 +150,14 @@ func RSAVerify(src, sign, alipayPublicKey []byte, hash crypto.Hash) (bool, error
 	digest := t.Sum(nil)
 
 	// base64 decode,必须步骤，支付宝对返回的签名做过base64 encode必须要反过来decode才能通过验证
-	data, _ := base64.StdEncoding.DecodeString(string(sign))
+	data, err := base64.StdEncoding.DecodeString(string(sign))
+
+	if err != nil {
+		return false, err
+	}
 
 	// 调用rsa包的VerifyPKCS1v15验证签名有效性
+
 	err = rsa.VerifyPKCS1v15(rsaPub, hash, digest, data)
 	if err != nil {
 		fmt.Println(string(src))

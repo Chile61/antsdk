@@ -1,10 +1,16 @@
 package util
 
-import (
-	"github.com/vanishs/antsdk/api"
-)
+import "github.com/vanishs/antsdk/api"
 
 // AlipayOfflineMarketReportErrorCreateResponse AlipayOfflineMarketReportErrorCreateResponse
 type AlipayOfflineMarketReportErrorCreateResponse struct {
-	api.AlipayResponse
+	E api.Exception
+}
+
+// SetTags SetTags
+func (resp *AlipayOfflineMarketReportErrorCreateResponse) SetTags() (successTag string, exceptionTag string, e *api.Exception) {
+	successTag = "alipay_offline_market_reporterror_create_response"
+	exceptionTag = "alipay_offline_market_reporterror_create_response"
+	e = &resp.E
+	return
 }

@@ -1,4 +1,4 @@
-package alipay
+package antsdk
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ func Test2(t *testing.T) {
 
 func Test3(t *testing.T) {
 
-	client := NewDefaultClient(ConstProdGateway, "appid", "private", "public", ConstSignTypeRsa)
+	client := NewDefaultClient(ConstProdGateway, "appid", "private", "public", ConstSignTypeRSA)
 
 	request := &util.AlipayUserInfoAuthRequest{}
 
@@ -34,7 +34,7 @@ func Test3(t *testing.T) {
 	if err != nil {
 		fmt.Println("error:", err)
 	} else {
-		if response.IsSuccess() {
+		if response.E.IsSuccess() {
 			fmt.Println("success")
 		} else {
 			fmt.Println("fail")

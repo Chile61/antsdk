@@ -18,26 +18,26 @@ import (
 )
 
 func main() {
-    client := alipay.NewDefaultClient(alipay.ConstProdGateway, "商户AppId", "商户密钥", "支付宝公钥", alipay.ConstSignTypeRsaRSA)
+	client := antsdk.NewDefaultClient(antsdk.ConstProdGateway, "商户AppId", "商户密钥", "支付宝公钥", antsdk.ConstSignTypeRSA)
 
-    request := &util.AlipayUserInfoAuthRequest{}
+	request := &util.AlipaySystemOauthTokenRequest{}
 
-    request.Scopes = []string{"auth_user", "auth_base"}
-    request.State = "test"
+	request.Code = "code"
+	request.GrantType = "authorization_code"
 
-    var response util.AlipayUserInfoAuthResponse
+	var response util.AlipaySystemOauthTokenResponse
 
-    err := client.Execute(request, &response)
-    if err != nil {
-        // 错误处理
-        fmt.Println(err)
-    } else {
-        if response.IsSuccess() {
-          fmt.Println("调用成功")
-        } else {
-          fmt.Println("调用失败")
-        }
-    }
+	err := client.Execute(request, &response)
+	if err != nil {
+		// 错误处理
+		fmt.Println(err)
+	} else {
+		if response.IsSuccess() {
+			fmt.Println("调用成功")
+		} else {
+			fmt.Println("调用失败")
+		}
+	}
 }
 ```
 
