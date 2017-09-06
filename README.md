@@ -1,5 +1,6 @@
 # antsdk
-蚂蚁金服(支付宝)开放平台 go-sdk
+内部版本:alipay-sdk-go-mini
+实现最小功能 蚂蚁金服(支付宝) 开放平台 go-sdk
 支付宝API文档:[传送门](https://docs.open.alipay.com/api)
 
 ## 安装

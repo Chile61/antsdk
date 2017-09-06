@@ -7,20 +7,20 @@ const (
 	// ConstDeveGateway ConstDeveGateway
 	ConstDeveGateway = "https://openapi.alipaydev.com/gateway.do"
 
-	// ConstSignTypeRsa RSA签名算法，用于constSignTypeKey(当前默认值)
+	// ConstSignTypeRsa RSA签名算法，用于constSignTypeKey
 	ConstSignTypeRsa = "RSA"
-	// ConstSignTypeRsa2 RSA2签名算法，用于constSignTypeKey
+	// ConstSignTypeRsa2 RSA2签名算法，用于constSignTypeKey(当前默认值)
 	ConstSignTypeRsa2 = "RSA2"
 
-	// constCharsetUTF8 utf8字符编码格式，用于constCharsetKey(当前默认值)
+	// constCharsetUTF8 utf8字符编码格式
 	constCharsetUTF8 = "UTF-8"
-	// constFormatJSON xml编码格式用于constFormatKey(当前默认值)
+	// constFormatJSON xml编码格式
 	constFormatJSON = "json"
-	// constSDKversion SDK版本,用于constVersionKey
-	constSDKversion = "alipay-sdk-go"
-	// constEncryptTypeAES 加密类型 目前只支持AES
+	// constSDKversion SDK版本
+	constSDKversion = "alipay-sdk-go-mini"
+	// constEncryptTypeAES 加密类型
 	constEncryptTypeAES = "AES"
-	// constVersionVal 当前版本
+	// constVersionVal 当前API版本
 	constVersionVal = "1.0"
 
 	constSignTypeKey     = "sign_type"
