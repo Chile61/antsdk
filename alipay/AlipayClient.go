@@ -152,7 +152,7 @@ func (c *Client) getRequestURL(requestHolder *utils.RequestParametersHolder) str
 func getBizTextParams(request api.IAlipayRequest) *utils.AlipayHashMap {
 
 	retval := utils.NewAlipayHashMap()
-	retval.Put("biz_content", utils.ToJSON(request))
+	retval.Put(constBizContentKey, utils.ToJSON(request))
 	return retval
 
 }
