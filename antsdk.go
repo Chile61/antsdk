@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -386,4 +387,56 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.Re
 	protocalMustParams.Put(constSignKey, sign)
 
 	return requestHolder, nil
+}
+
+// GetClientFastLoginStr 生成客户端快速登陆字符串
+func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string) (string, error) {
+
+	var hash crypto.Hash
+
+	switch signtype {
+	case "RSA":
+		hash = crypto.SHA1
+	case "RSA2":
+		hash = crypto.SHA256
+	default:
+		hash = crypto.SHA256
+		signtype = "RSA2"
+	}
+
+	requestHolder := utils.NewRequestParametersHolder()
+
+	requestHolder.ProtocalMustParams = utils.NewAlipayHashMap()
+	requestHolder.ApplicationParams = utils.NewAlipayHashMap()
+
+	requestHolder.ProtocalMustParams.Put("apiname", "com.alipay.account.auth")
+	requestHolder.ProtocalMustParams.Put("app_name", "mc")
+	requestHolder.ProtocalMustParams.Put("auth_type", "AUTHACCOUNT")
+	requestHolder.ProtocalMustParams.Put("biz_type", "openservice")
+	requestHolder.ProtocalMustParams.Put("method", "alipay.open.auth.sdk.code.get")
+	requestHolder.ProtocalMustParams.Put("product_id", "APP_FAST_LOGIN")
+	requestHolder.ProtocalMustParams.Put("scope", "kuaijie")
+	requestHolder.ProtocalMustParams.Put("target_id", strconv.FormatInt(time.Now().UnixNano(), 10))
+
+	requestHolder.ProtocalMustParams.Put("app_id", appID)
+	requestHolder.ProtocalMustParams.Put("pid", pid)
+
+	signMap := utils.GetSignMap(requestHolder)
+
+	sign, err := utils.Sign(signMap, []byte(appPrivatePKCS8B64), hash)
+	if err != nil {
+		return "", errors.New("Sign fail")
+	}
+
+	requestHolder.ProtocalMustParams.Put(constSignKey, sign)
+	requestHolder.ProtocalMustParams.Put(constSignTypeKey, signtype)
+
+	sbURL := utils.NewStringBuilder()
+
+	sysMustQuery := utils.BuildQuery(requestHolder.ProtocalMustParams.GetMap())
+
+	sbURL.Append(sysMustQuery)
+
+	return sbURL.ToString(), nil
+
 }
