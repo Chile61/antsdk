@@ -69,20 +69,20 @@ const (
 
 // Client 是用户接口，使用NewDefaultClient可以创建一个默认的接口
 type Client struct {
-	serverURL       string
-	appID           string
-	privatePKCS8B64 string
-	format          string
-	signType        string
-	publicPKCS8B64  string
-	encryptType     string
-	charset         string
-	encryptKey      string
-	hash            crypto.Hash
+	serverURL            string
+	appID                string
+	appPrivatePKCS8B64   string
+	format               string
+	signType             string
+	alipayPublicPKCS8B64 string
+	encryptType          string
+	charset              string
+	encryptKey           string
+	hash                 crypto.Hash
 }
 
 // NewDefaultClient 创建一个默认的Client，可以构建相关struct后调用Execute执行该功能
-func NewDefaultClient(serverURL, appID, privatePKCS8B64, publicPKCS8B64 string, signtype string) *Client {
+func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64 string, signtype string) *Client {
 
 	var hash crypto.Hash
 
@@ -97,15 +97,15 @@ func NewDefaultClient(serverURL, appID, privatePKCS8B64, publicPKCS8B64 string, 
 	}
 
 	return &Client{
-		serverURL:       serverURL,
-		appID:           appID,
-		privatePKCS8B64: privatePKCS8B64,
-		format:          constFormatJSON,
-		signType:        signtype,
-		publicPKCS8B64:  publicPKCS8B64,
-		encryptType:     constEncryptTypeAES,
-		charset:         constCharsetUTF8,
-		hash:            hash,
+		serverURL:            serverURL,
+		appID:                appID,
+		appPrivatePKCS8B64:   appPrivatePKCS8B64,
+		format:               constFormatJSON,
+		signType:             signtype,
+		alipayPublicPKCS8B64: alipayPublicPKCS8B64,
+		encryptType:          constEncryptTypeAES,
+		charset:              constCharsetUTF8,
+		hash:                 hash,
 	}
 
 }
@@ -176,7 +176,7 @@ func (c *Client) ExecuteWithAppAuthToken(request api.IAlipayRequest, response ap
 	///////////////////////////////////////////////////////
 
 	// 验证签名
-	isOk, err := utils.SyncVerifySign(result, sign, []byte(c.publicPKCS8B64), c.hash)
+	isOk, err := utils.SyncVerifySign(result, sign, []byte(c.alipayPublicPKCS8B64), c.hash)
 	if err != nil {
 		return err
 	}
@@ -343,7 +343,7 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToke
 
 	if c.signType != "" {
 		signMap := utils.GetSignMap(requestHolder)
-		sign, err := utils.Sign(signMap, []byte(c.privatePKCS8B64), c.hash)
+		sign, err := utils.Sign(signMap, []byte(c.appPrivatePKCS8B64), c.hash)
 		if err != nil {
 			return nil, err
 		}
