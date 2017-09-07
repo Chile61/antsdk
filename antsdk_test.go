@@ -2,6 +2,7 @@ package antsdk
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/vanishs/antsdk/api/util"
@@ -40,4 +41,22 @@ func Test3(t *testing.T) {
 			fmt.Println("fail")
 		}
 	}
+}
+
+func Test4(t *testing.T) {
+	a := `\\\"\/\b\f\n\r\t`
+	b := `\"/` + "\b" + "\f" + "\n" + "\r" + "\t"
+	// https://docs.microsoft.com/zh-cn/sql/relational-databases/json/how-for-json-escapes-special-characters-and-control-characters-sql-server
+	a = strings.Replace(a, `\\`, `\`, -1)
+	a = strings.Replace(a, `\"`, `"`, -1)
+	a = strings.Replace(a, `\/`, `/`, -1)
+	a = strings.Replace(a, `\b`, "\b", -1)
+	a = strings.Replace(a, `\f`, "\f", -1)
+	a = strings.Replace(a, `\n`, "\n", -1)
+	a = strings.Replace(a, `\r`, "\r", -1)
+	a = strings.Replace(a, `\t`, "\t", -1)
+	if a != b {
+		t.Error("err!\n")
+	}
+
 }

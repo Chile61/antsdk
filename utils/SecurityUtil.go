@@ -6,10 +6,8 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/url"
 	"os"
 	"sort"
@@ -95,8 +93,8 @@ func RSASign(origData string, privateKey *rsa.PrivateKey, hash crypto.Hash) (str
 }
 
 // SyncVerifySign 同步返回验签
-func SyncVerifySign(sign string, body, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
-	return RSAVerify(body, []byte(sign), alipayPublicKey, hash)
+func SyncVerifySign(body, sign string, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
+	return RSAVerify(JSONUnescapeString(body), sign, alipayPublicKey, hash)
 }
 
 // AsyncVerifySign 异步返回验签
@@ -121,14 +119,14 @@ func AsyncVerifySign(body, alipayPublicKey []byte, hash crypto.Hash) (bool, erro
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	return RSAVerify([]byte(signStr), []byte(sign), alipayPublicKey, hash)
+	return RSAVerify(signStr, sign, alipayPublicKey, hash)
 }
 
 // RSAVerify RSA 验证
-func RSAVerify(src, sign, publicPKCS8B64 []byte, hash crypto.Hash) (bool, error) {
+func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash) (bool, error) {
 
 	// 加载RSA的公钥
-	log.Println(string(sign), string(src))
+
 	// publicPKCS8B64[0] = 0
 	block, err := base64.StdEncoding.DecodeString(string(publicPKCS8B64))
 	if err != nil {
@@ -146,11 +144,11 @@ func RSAVerify(src, sign, publicPKCS8B64 []byte, hash crypto.Hash) (bool, error)
 
 	// 计算代签名字串的哈希
 	t := hash.New()
-	io.WriteString(t, string(src))
+	io.WriteString(t, src)
 	digest := t.Sum(nil)
 
 	// base64 decode,必须步骤，支付宝对返回的签名做过base64 encode必须要反过来decode才能通过验证
-	data, err := base64.StdEncoding.DecodeString(string(sign))
+	data, err := base64.StdEncoding.DecodeString(sign)
 
 	if err != nil {
 		return false, err
@@ -160,8 +158,6 @@ func RSAVerify(src, sign, publicPKCS8B64 []byte, hash crypto.Hash) (bool, error)
 
 	err = rsa.VerifyPKCS1v15(rsaPub, hash, digest, data)
 	if err != nil {
-		fmt.Println(string(src))
-		fmt.Println("error")
 		return false, err
 	}
 

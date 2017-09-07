@@ -4,7 +4,6 @@ import (
 	"crypto"
 	"errors"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -123,16 +122,14 @@ func (c *Client) ExecuteWithAccessToken(request api.IAlipayRequest, response api
 
 // ExecuteWithAppAuthToken 使用appAuthToken,accessToken传递相关request,response struct指针，执行相关方法并且返回结果
 func (c *Client) ExecuteWithAppAuthToken(request api.IAlipayRequest, response api.IAlipayResponse, accessToken, appAuthToken string) error {
-	log.Println("#######")
 
 	bResult, err := c.doPost(request, accessToken, appAuthToken)
 	if err != nil {
 		return err
 	}
-	log.Println("000000000")
+
 	// 验签
 	strResp := string(bResult)
-	log.Println(strResp)
 
 	// 正则验签
 	expResult := `(^\{\"[a-z|_]+\":)|(,\"sign\":\"[a-zA-Z0-9|\+|\/|\=]+\"\}$)`
@@ -145,55 +142,47 @@ func (c *Client) ExecuteWithAppAuthToken(request api.IAlipayRequest, response ap
 		return errors.New("验签失败:签名丢失")
 	}
 	sign := signMatchRes[1]
-	log.Println("111111111", sign)
 
 	///////////////////////////////////////////////////////
 	s, e, ex := response.SetTags()
-	log.Printf("AAAAAAAAAA [%s] [%s]\n", sign, result)
+
 	value := gjson.Get(strResp, e)
 
 	errjsonstr := value.String()
-	log.Println("2222222", errjsonstr)
+
 	if "" != errjsonstr {
 
 		err = gjson.Unmarshal([]byte(errjsonstr), ex)
 		if err != nil {
-			log.Println("AAAAAAAAAB")
 			return err
 		}
-		log.Println("33333333333")
 		if !ex.IsSuccess() {
 			return nil
 		}
 
 	}
-	log.Println("4444444444")
+
 	value = gjson.Get(strResp, s)
 
 	okjsonstr := value.String()
 	if "" == okjsonstr {
 		return errors.New("json value is empty")
 	}
-	log.Println("5555555555")
 	err = gjson.Unmarshal([]byte(okjsonstr), response)
 	if err != nil {
-		log.Println("BBBBBBBB")
 		return err
 	}
-	log.Println("666666666666")
 
 	///////////////////////////////////////////////////////
 
 	// 验证签名
-	isOk, err := utils.SyncVerifySign(sign, []byte(result), []byte(c.publicPKCS8B64), c.hash)
+	isOk, err := utils.SyncVerifySign(result, sign, []byte(c.publicPKCS8B64), c.hash)
 	if err != nil {
 		return err
 	}
-	log.Println("!!!!!!!!")
 	if !isOk {
 		return errors.New("sign fail:sign error")
 	}
-	log.Println("@@@@@@@@@")
 
 	return nil
 }
@@ -218,8 +207,6 @@ func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, e
 			data.Set(k, v)
 		}
 	}
-
-	log.Println("xxx:", reqURL, data.Encode())
 
 	reqParams := ioutil.NopCloser(strings.NewReader(data.Encode()))
 	var client http.Client
