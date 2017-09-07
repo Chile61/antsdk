@@ -15,5 +15,5 @@ type Exception struct {
 
 // IsSuccess 判断结果是否成功 见https://docs.open.alipay.com/common/105806
 func (e *Exception) IsSuccess() bool {
-	return e.Code == ""
+	return e.Code == "" || e.Code == "10000"
 }
