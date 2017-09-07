@@ -4,6 +4,7 @@ import (
 	"crypto"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -112,18 +113,8 @@ func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64
 
 // Execute 传递相关request,response struct指针，执行相关方法并且返回结果
 func (c *Client) Execute(request api.IAlipayRequest, response api.IAlipayResponse) error {
-	return c.ExecuteWithAccessToken(request, response, "")
-}
 
-// ExecuteWithAccessToken 使用accessToken传递相关request,response struct指针，执行相关方法并且返回结果
-func (c *Client) ExecuteWithAccessToken(request api.IAlipayRequest, response api.IAlipayResponse, accessToken string) error {
-	return c.ExecuteWithAppAuthToken(request, response, accessToken, "")
-}
-
-// ExecuteWithAppAuthToken 使用appAuthToken,accessToken传递相关request,response struct指针，执行相关方法并且返回结果
-func (c *Client) ExecuteWithAppAuthToken(request api.IAlipayRequest, response api.IAlipayResponse, accessToken, appAuthToken string) error {
-
-	bResult, err := c.doPost(request, accessToken, appAuthToken)
+	bResult, err := c.doPost(request)
 	if err != nil {
 		return err
 	}
@@ -187,8 +178,8 @@ func (c *Client) ExecuteWithAppAuthToken(request api.IAlipayRequest, response ap
 	return nil
 }
 
-func (c *Client) doPost(request api.IAlipayRequest, accessToken, appAuthToken string) ([]byte, error) {
-	requestHolder, err := c.getRequestHolderWithSign(request, accessToken, appAuthToken)
+func (c *Client) doPost(request api.IAlipayRequest) ([]byte, error) {
+	requestHolder, err := c.getRequestHolderWithSign(request)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +240,11 @@ func getTextParams(request api.IAlipayRequest) *utils.AlipayHashMap {
 	v := reflect.ValueOf(request).Elem()
 
 	for i := 0; i < v.NumField(); i++ {
-		retval.Put(t.Field(i).Tag.Get("json"), v.Field(i).Interface())
+		jsonkey := t.Field(i).Tag.Get("json")
+		if "" != jsonkey {
+			retval.Put(jsonkey, v.Field(i).Interface())
+		}
+
 	}
 
 	return retval
@@ -264,7 +259,7 @@ func getParams(request api.IAlipayRequest) *utils.AlipayHashMap {
 
 }
 
-func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToken, appAuthToken string) (*utils.RequestParametersHolder, error) {
+func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.RequestParametersHolder, error) {
 	requestHolder := utils.NewRequestParametersHolder()
 
 	applicationParams := getParams(request)
@@ -299,41 +294,82 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToke
 	protocalMustParams.Put(constTimestampKey, time.Now().Format("2006-01-02 15:04:05"))
 	protocalMustParams.Put(constAlipaySDKKey, constSDKversion)
 
-	returnURL, ok := request.(interface{}).(*api.ReturnURL)
-	if ok {
-		protocalMustParams.Put(constReturnURLKey, returnURL.GetReturnURL())
+	var requPubV reflect.Value
+
+	requestTypeName := reflect.TypeOf(request).Elem().Name()
+
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicTerminalType")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicTerminalType is empty")
+		} else {
+			protocalMustParams.Put(constTerminalTypeKey, requPubV.String())
+		}
+
 	}
 
-	notifyURL, ok := request.(interface{}).(*api.NotifyURL)
-	if ok {
-		protocalMustParams.Put(constNotifyURLKey, notifyURL.GetNotifyURL())
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicTerminalInfo")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicTerminalInfo is empty")
+		} else {
+			protocalMustParams.Put(constTerminalInfoKey, requPubV.String())
+		}
+
 	}
 
-	prodCode, ok := request.(interface{}).(*api.ProdCode)
-	if ok {
-		protocalMustParams.Put(constProdCodeKey, prodCode.GetProdCode())
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicNotifyURL")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicNotifyURL is empty")
+		} else {
+			protocalMustParams.Put(constNotifyURLKey, requPubV.String())
+		}
+
 	}
 
-	terminalInfo, ok := request.(interface{}).(*api.TerminalInfo)
-	if ok {
-		protocalMustParams.Put(constTerminalInfoKey, terminalInfo.GetTerminalInfo())
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicReturnURL")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicReturnURL is empty")
+		} else {
+			protocalMustParams.Put(constReturnURLKey, requPubV.String())
+		}
+
 	}
 
-	terminalType, ok := request.(interface{}).(*api.TerminalType)
-	if ok {
-		protocalMustParams.Put(constTerminalTypeKey, terminalType.GetTerminalType())
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicProdCode")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicProdCode is empty")
+		} else {
+			protocalMustParams.Put(constProdCodeKey, requPubV.String())
+		}
+
+	}
+
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicAuthToken")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicAuthToken is empty")
+		} else {
+			protocalMustParams.Put(constAccessTokenKey, requPubV.String())
+		}
+
+	}
+
+	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicAppAuthToken")
+	if requPubV.IsValid() {
+		if requPubV.String() == "" {
+			log.Println("[W]: " + requestTypeName + " PublicAppAuthToken is empty")
+		} else {
+			protocalMustParams.Put(constAppAuthTokenKey, requPubV.String())
+		}
+
 	}
 
 	if request.IsNeedEncrypt() {
 		protocalMustParams.Put(constEncryptTypeKey, c.encryptType)
-	}
-
-	if "" != accessToken {
-		protocalMustParams.Put(constAccessTokenKey, accessToken)
-	}
-
-	if "" != appAuthToken {
-		protocalMustParams.Put(constAppAuthTokenKey, appAuthToken)
 	}
 
 	// to sign
@@ -341,16 +377,13 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest, accessToke
 	requestHolder.ApplicationParams = applicationParams
 	requestHolder.ProtocalMustParams = protocalMustParams
 
-	if c.signType != "" {
-		signMap := utils.GetSignMap(requestHolder)
-		sign, err := utils.Sign(signMap, []byte(c.appPrivatePKCS8B64), c.hash)
-		if err != nil {
-			return nil, err
-		}
-		protocalMustParams.Put(constSignKey, sign)
-	} else {
-		protocalMustParams.Put(constSignKey, "")
+	signMap := utils.GetSignMap(requestHolder)
+
+	sign, err := utils.Sign(signMap, []byte(c.appPrivatePKCS8B64), c.hash)
+	if err != nil {
+		return nil, err
 	}
+	protocalMustParams.Put(constSignKey, sign)
 
 	return requestHolder, nil
 }

@@ -7,77 +7,23 @@ type IAlipayRequest interface {
 	IsNeedBizContent() bool
 }
 
-// ITerminalType ITerminalType
-type ITerminalType interface {
-	GetTerminalType() string
-}
+// PublicTerminalType PublicTerminalType
+type PublicTerminalType string
 
-// ITerminalInfo ITerminalInfo
-type ITerminalInfo interface {
-	GetTerminalInfo() string
-}
+// PublicTerminalInfo PublicTerminalInfo
+type PublicTerminalInfo string
 
-// INotifyURL INotifyURL
-type INotifyURL interface {
-	GetNotifyURL() string
-}
+// PublicNotifyURL PublicNotifyURL
+type PublicNotifyURL string
 
-// IReturnURL IReturnURL
-type IReturnURL interface {
-	GetReturnURL() string
-}
+// PublicReturnURL PublicReturnURL
+type PublicReturnURL string
 
-// IProdCode IProdCode
-type IProdCode interface {
-	GetProdCode() string
-}
+// PublicProdCode PublicProdCode
+type PublicProdCode string
 
-// TerminalType TerminalType
-type TerminalType struct {
-	PublicTerminalType string
-}
+// PublicAuthToken PublicAuthToken
+type PublicAuthToken string
 
-// GetTerminalType GetTerminalType
-func (v *TerminalType) GetTerminalType() string {
-	return v.PublicTerminalType
-}
-
-// TerminalInfo TerminalInfo
-type TerminalInfo struct {
-	PublicTerminalInfo string
-}
-
-// GetTerminalInfo GetTerminalInfo
-func (v *TerminalInfo) GetTerminalInfo() string {
-	return v.PublicTerminalInfo
-}
-
-// NotifyURL NotifyURL
-type NotifyURL struct {
-	PublicNotifyURL string
-}
-
-// GetNotifyURL GetNotifyURL
-func (v *NotifyURL) GetNotifyURL() string {
-	return v.PublicNotifyURL
-}
-
-// ReturnURL ReturnURL
-type ReturnURL struct {
-	PublicReturnURL string
-}
-
-// GetReturnURL GetReturnURL
-func (v *ReturnURL) GetReturnURL() string {
-	return v.PublicReturnURL
-}
-
-// ProdCode ProdCode
-type ProdCode struct {
-	PublicProdCode string
-}
-
-// GetProdCode GetProdCode
-func (v *ProdCode) GetProdCode() string {
-	return v.PublicProdCode
-}
+// PublicAppAuthToken PublicAppAuthToken
+type PublicAppAuthToken string
