@@ -5,6 +5,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"io"
 	"io/ioutil"
@@ -98,10 +99,25 @@ func SyncVerifySign(body, sign string, alipayPublicKey []byte, hash crypto.Hash)
 }
 
 // AsyncVerifySign 异步返回验签
-func AsyncVerifySign(body, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
-	data, err := url.ParseQuery(string(body))
+func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte, val interface{}) (bool, error) {
+	data, err := url.ParseQuery(body)
 	if err != nil {
 		return false, err
+	}
+
+	var hash crypto.Hash
+	var pkey []byte
+	sign := data["sign"][0]
+
+	switch data["sign_type"][0] {
+	case "RSA":
+		hash = crypto.SHA1
+		pkey = alipayPublicKeyRSA
+	case "RSA2":
+		hash = crypto.SHA256
+		pkey = alipayPublicKeyRSA2
+	default:
+		return false, errors.New("Err sign_type:" + data["sign_type"][0])
 	}
 
 	var m map[string]string
@@ -114,12 +130,19 @@ func AsyncVerifySign(body, alipayPublicKey []byte, hash crypto.Hash) (bool, erro
 		m[k] = v[0]
 	}
 
-	sign := data["sign"][0]
+	jsonString, err := json.Marshal(m)
+	if err != nil {
+		return false, err
+	}
+	err = json.Unmarshal(jsonString, val)
+	if err != nil {
+		return false, err
+	}
 
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	return RSAVerify(signStr, sign, alipayPublicKey, hash)
+	return RSAVerify(signStr, sign, pkey, hash)
 }
 
 // RSAVerify RSA 验证

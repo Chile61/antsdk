@@ -450,3 +450,16 @@ func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string) (str
 	return sbURL.ToString(), nil
 
 }
+
+func GetNotify(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte) (*AlipayNotify, error) {
+	var n AlipayNotify
+	ok, err := utils.AsyncVerifySign(body, alipayPublicKeyRSA, alipayPublicKeyRSA2, &n)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, nil
+	}
+	return &n, nil
+
+}
