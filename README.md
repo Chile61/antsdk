@@ -97,3 +97,4 @@ func main() {
 统一收单线下交易预创建 | trade.AlipayTradePrecreateRequest
 统一收单线下交易查询 | trade.AlipayTradeQueryRequest
 统一收单交易退款接口 | trade.AlipayTradeRefundRequest
+App支付请求 | trade.AlipayTradeAppPayRequest
