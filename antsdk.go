@@ -112,6 +112,43 @@ func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64
 
 }
 
+// NewGetStringClient 创建一个只能调用GetString方法的Client
+func NewGetStringClient(appID, appPrivatePKCS8B64, signtype string) *Client {
+
+	var hash crypto.Hash
+
+	switch signtype {
+	case "RSA":
+		hash = crypto.SHA1
+	case "RSA2":
+		hash = crypto.SHA256
+	default:
+		hash = crypto.SHA256
+		signtype = "RSA2"
+	}
+
+	return &Client{
+		appID:              appID,
+		appPrivatePKCS8B64: appPrivatePKCS8B64,
+		format:             constFormatJSON,
+		signType:           signtype,
+		encryptType:        constEncryptTypeAES,
+		charset:            constCharsetUTF8,
+		hash:               hash,
+	}
+
+}
+
+// GetString 获取request字符串
+func (c *Client) GetString(request api.IAlipayRequest) (string, error) {
+	requestHolder, err := c.getRequestHolderWithSign(request)
+	if err != nil {
+		return "", err
+	}
+
+	return utils.BuildQuery(requestHolder.ProtocalMustParams.GetMap()), nil
+}
+
 // Execute 传递相关request,response struct指针，执行相关方法并且返回结果
 func (c *Client) Execute(request api.IAlipayRequest, response api.IAlipayResponse) error {
 
