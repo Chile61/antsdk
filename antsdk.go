@@ -225,50 +225,29 @@ func (c *Client) getRequestURL(requestHolder *utils.RequestParametersHolder) str
 	return sbURL.ToString()
 }
 
-func getBizTextParams(request api.IAlipayRequest) *utils.AlipayHashMap {
-
-	retval := utils.NewAlipayHashMap()
-	retval.Put(constBizContentKey, utils.ToJSON(request))
-	return retval
-
-}
-
-func getTextParams(request api.IAlipayRequest) *utils.AlipayHashMap {
-
-	retval := utils.NewAlipayHashMap()
-
-	t := reflect.TypeOf(request).Elem()
-	v := reflect.ValueOf(request).Elem()
-
-	for i := 0; i < v.NumField(); i++ {
-		jsonkey := t.Field(i).Tag.Get("json")
-		if "" != jsonkey {
-			retval.Put(jsonkey, v.Field(i).Interface())
-		}
-
-	}
-
-	return retval
-
-}
-
-func getParams(request api.IAlipayRequest) *utils.AlipayHashMap {
-	if request.IsNeedBizContent() {
-		return getBizTextParams(request)
-	}
-	return getTextParams(request)
-
-}
-
 func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.RequestParametersHolder, error) {
+
 	requestHolder := utils.NewRequestParametersHolder()
+	protocalMustParams := utils.NewAlipayHashMap()
+	applicationParams := utils.NewAlipayHashMap()
 
-	applicationParams := getParams(request)
+	if request.IsNeedBizContent() {
+		protocalMustParams.Put(constBizContentKey, utils.ToJSON(request))
+	} else {
+		t := reflect.TypeOf(request).Elem()
+		v := reflect.ValueOf(request).Elem()
 
-	// 只有新接口和设置密钥才能支持加密
+		for i := 0; i < v.NumField(); i++ {
+			jsonkey := t.Field(i).Tag.Get("json")
+			if "" != jsonkey {
+				applicationParams.Put(jsonkey, v.Field(i).Interface())
+			}
+		}
+	}
+
 	if request.IsNeedEncrypt() {
 		if !request.IsNeedBizContent() {
-			return nil, errors.New("当前API不支持加密请求")
+			panic(reflect.TypeOf(request).Elem().Name() + "have bug!")
 		}
 
 		// 需要加密必须设置密钥和加密算法
@@ -276,15 +255,14 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.Re
 			return nil, errors.New("API请求要求加密，则必须设置密钥和密钥类型：encryptKey=" + c.encryptKey + ",encryptType=" + c.encryptType)
 		}
 
-		encryptContent, err := utils.EncryptContent(applicationParams.Get(constBizContentKey), c.encryptType, c.encryptKey)
+		encryptContent, err := utils.EncryptContent(protocalMustParams.Get(constBizContentKey), c.encryptType, c.encryptKey)
 		if err != nil {
 			return nil, err
 		}
 
-		applicationParams.Put(constBizContentKey, encryptContent)
+		protocalMustParams.Put(constBizContentKey, encryptContent)
+		protocalMustParams.Put(constEncryptTypeKey, c.encryptType)
 	}
-
-	protocalMustParams := utils.NewAlipayHashMap()
 
 	protocalMustParams.Put(constAppIDKey, c.appID)
 	protocalMustParams.Put(constSignTypeKey, c.signType)
@@ -296,7 +274,6 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.Re
 	protocalMustParams.Put(constAlipaySDKKey, constSDKversion)
 
 	var requPubV reflect.Value
-
 	requestTypeName := reflect.TypeOf(request).Elem().Name()
 
 	requPubV = reflect.ValueOf(request).Elem().FieldByName("PublicTerminalType")
@@ -367,10 +344,6 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.Re
 			protocalMustParams.Put(constAppAuthTokenKey, requPubV.String())
 		}
 
-	}
-
-	if request.IsNeedEncrypt() {
-		protocalMustParams.Put(constEncryptTypeKey, c.encryptType)
 	}
 
 	// to sign
