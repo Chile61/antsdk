@@ -3,6 +3,7 @@ package trade
 import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeAppPayRequest alipay.trade.app.pay(App支付请求)
+// https://docs.open.alipay.com/204/105465/
 // 用于交易创建后，用户在一定时间内未进行支付，可调用该接口直接将未付款的交易进行关闭。
 type AlipayTradeAppPayRequest struct {
 	api.PublicNotifyURL
