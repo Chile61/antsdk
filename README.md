@@ -1,6 +1,8 @@
 # antsdk
-内部版本:alipay-sdk-go-mini
 实现最小功能 蚂蚁金服(支付宝) 开放平台 go-sdk
+
+
+# API doc
 支付宝API文档:[传送门](https://docs.open.alipay.com/api)
 
 ## 安装
@@ -42,7 +44,7 @@ func main() {
 ```
 
 ## API 支持情况
-- [ ] [支付 API](#支付-api)
+- [x] [支付 API](#支付-api)
 - [x] [会员 API](#会员-api)
 - [ ] [店铺 API](#店铺-api)
 - [ ] [营销 API](#营销-api)
@@ -82,3 +84,16 @@ func main() {
 支付宝钱包用户信息共享 | user.AlipayUserUserinfoShareRequest
 支付宝会员授权信息查询接口 | user.AlipayUserInfoShareRequest
 
+## 支付 API
+
+描述 | 支付
+---|---
+统一收单交易撤销接口 | trade.AlipayTradeCancelRequest
+统一收单交易关闭接口 | trade.AlipayTradeCloseRequest
+统一收单交易创建接口 | trade.AlipayTradeCreateRequest
+统一收单交易退款查询 | trade.AlipayTradeFastpayRefundQueryRequest
+统一收单交易结算接口 | trade.AlipayTradeOrderSettleRequest
+统一收单交易支付接口 | trade.AlipayTradePayRequest
+统一收单线下交易预创建 | trade.AlipayTradePrecreateRequest
+统一收单线下交易查询 | trade.AlipayTradeQueryRequest
+统一收单交易退款接口 | trade.AlipayTradeRefundRequest
