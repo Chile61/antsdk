@@ -25,7 +25,7 @@ type OpenAPIRoyaltyDetailInfoPojo struct {
 
 // GetAPImethodName GetAPImethodName
 func (requ *AlipayTradeOrderSettleRequest) GetAPImethodName() string {
-	return "alipay.trade.fastpay.refund.query"
+	return "alipay.trade.order.settle"
 }
 
 // IsNeedEncrypt IsNeedEncrypt
