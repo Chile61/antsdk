@@ -5,7 +5,7 @@ import "github.com/vanishs/antsdk/api"
 // AlipayOpenPublicContactFollowBatchqueryResponse AlipayOpenPublicContactFollowBatchqueryResponse
 type AlipayOpenPublicContactFollowBatchqueryResponse struct {
 	E                 api.Exception
-	ContactFollowList string `json:"contact_follow_list"` // 联系人关注者列表
+	ContactFollowList []ContactFollower `json:"contact_follow_list"` // 联系人关注者列表
 }
 
 // ContactFollower ContactFollower
