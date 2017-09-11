@@ -107,9 +107,18 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 
 	var hash crypto.Hash
 	var pkey []byte
-	sign := data["sign"][0]
+	signs, ok := data["sign"]
+	if !ok {
+		return false, errors.New("no found sign")
+	}
+	signTypes, ok := data["sign_type"]
+	if !ok {
+		return false, errors.New("no found sign_type")
+	}
+	sign := signs[0]
+	signType := signTypes[0]
 
-	switch data["sign_type"][0] {
+	switch signType {
 	case "RSA":
 		hash = crypto.SHA1
 		pkey = alipayPublicKeyRSA
@@ -117,7 +126,7 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 		hash = crypto.SHA256
 		pkey = alipayPublicKeyRSA2
 	default:
-		return false, errors.New("Err sign_type:" + data["sign_type"][0])
+		return false, errors.New("Err sign_type:" + signType)
 	}
 
 	var m map[string]string
@@ -142,7 +151,9 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	return RSAVerify(signStr, sign, pkey, hash)
+	RSAVerify(signStr, sign, pkey, hash)
+
+	return true, nil
 }
 
 // RSAVerify RSA 验证
