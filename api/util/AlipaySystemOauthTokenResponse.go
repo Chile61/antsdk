@@ -1,6 +1,6 @@
 package util
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipaySystemOauthTokenResponse AlipaySystemOauthTokenResponse
 type AlipaySystemOauthTokenResponse struct {

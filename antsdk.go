@@ -13,10 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"./api"
-	"./utils"
-
 	"github.com/tidwall/gjson"
+	"github.com/vanishs/antsdk/api"
+	"github.com/vanishs/antsdk/utils"
 )
 
 const (

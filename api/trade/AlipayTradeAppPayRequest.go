@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeAppPayRequest alipay.trade.app.pay(App支付请求)
 // https://docs.open.alipay.com/204/105465/

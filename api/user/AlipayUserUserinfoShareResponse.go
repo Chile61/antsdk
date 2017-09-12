@@ -1,6 +1,6 @@
 package user
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayUserUserinfoShareResponse alipay.user.userinfo.share(支付宝钱包用户信息共享) 返回
 type AlipayUserUserinfoShareResponse struct {

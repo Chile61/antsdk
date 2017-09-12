@@ -1,6 +1,6 @@
 package public
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayOpenPublicContactFollowBatchqueryResponse AlipayOpenPublicContactFollowBatchqueryResponse
 type AlipayOpenPublicContactFollowBatchqueryResponse struct {

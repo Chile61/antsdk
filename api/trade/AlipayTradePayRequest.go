@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradePayRequest alipay.trade.pay(统一收单交易支付接口)
 // 收银员使用扫码设备读取用户手机支付宝“付款码”/声波获取设备（如麦克风）读取用户手机支付宝的声波信息后，将二维码或条码信息/声波信息通过本接口上送至支付宝发起支付。

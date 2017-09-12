@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeCreateRequest alipay.trade.create(统一收单交易创建接口)
 // 商户通过该接口进行交易的创建下单

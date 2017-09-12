@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeCancelRequest alipay.trade.cancel(统一收单交易撤销接口)
 // 支付交易返回失败或支付系统超时，调用该接口撤销交易。

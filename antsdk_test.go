@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"./api/util"
+	"github.com/vanishs/antsdk/api/util"
 )
 
 func Test3(t *testing.T) {

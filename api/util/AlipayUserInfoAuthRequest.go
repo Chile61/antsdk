@@ -1,6 +1,6 @@
 package util
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayUserInfoAuthRequest alipay.user.info.auth(用户登陆授权)
 // 用户进行账密、扫码登陆并授权

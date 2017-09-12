@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeQueryResponse AlipayTradeQueryResponse
 type AlipayTradeQueryResponse struct {

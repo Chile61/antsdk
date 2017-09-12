@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeFastpayRefundQueryRequest alipay.trade.fastpay.refund.query(统一收单交易退款查询)
 // 商户可使用该接口查询自已通过alipay.trade.refund提交的退款请求是否执行成功。

@@ -1,6 +1,6 @@
 package trade
 
-import "../../api"
+import "github.com/vanishs/antsdk/api"
 
 // AlipayTradeOrderSettleRequest alipay.trade.order.settle(统一收单交易结算接口)
 // 用于在线下场景交易支付后，进行结算
