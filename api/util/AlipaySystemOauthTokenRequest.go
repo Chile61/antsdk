@@ -1,6 +1,6 @@
 package util
 
-import "github.com/vanishs/antsdk/api"
+import "../../api"
 
 // AlipaySystemOauthTokenRequest alipay.system.oauth.token(换取授权访问令牌)
 // 换取授权访问令牌

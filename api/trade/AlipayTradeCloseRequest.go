@@ -1,6 +1,6 @@
 package trade
 
-import "github.com/vanishs/antsdk/api"
+import "../../api"
 
 // AlipayTradeCloseRequest alipay.trade.close(统一收单交易关闭接口)
 // 用于交易创建后，用户在一定时间内未进行支付，可调用该接口直接将未付款的交易进行关闭。

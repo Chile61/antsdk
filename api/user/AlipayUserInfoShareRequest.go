@@ -1,6 +1,6 @@
 package user
 
-import "github.com/vanishs/antsdk/api"
+import "../../api"
 
 // AlipayUserInfoShareRequest alipay.user.info.share(支付宝会员授权信息查询接口)
 // 配合支付宝会员授权接口，根据授权token，查询授权信息。

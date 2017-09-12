@@ -1,6 +1,6 @@
 package util
 
-import "github.com/vanishs/antsdk/api"
+import "../../api"
 
 // AlipayOfflineMarketReportErrorCreateResponse AlipayOfflineMarketReportErrorCreateResponse
 type AlipayOfflineMarketReportErrorCreateResponse struct {

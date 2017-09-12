@@ -1,6 +1,6 @@
 package public
 
-import "github.com/vanishs/antsdk/api"
+import "../../api"
 
 // AlipayOpenPublicContactFollowBatchqueryRequest alipay.open.public.contact.follow.batchquery(查询服务窗联系人关注列表)
 // 查询服务窗联系人关注列表
