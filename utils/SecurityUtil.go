@@ -133,6 +133,7 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 	m = make(map[string]string, 0)
 
 	for k, v := range data {
+		// log.Printf("antsdk get async:[%s]:[%s]\n", k, v)
 		if k == "sign" || k == "sign_type" { //不要'sign'和'sign_type'
 			continue
 		}
@@ -151,9 +152,7 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	RSAVerify(signStr, sign, pkey, hash)
-
-	return true, nil
+	return RSAVerify(signStr, sign, pkey, hash)
 }
 
 // RSAVerify RSA 验证
