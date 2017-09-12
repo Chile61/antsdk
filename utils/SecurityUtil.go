@@ -152,7 +152,7 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	return RSAVerify(signStr, sign, pkey, hash)
+	return RSAVerify(JSONUnescapeString(signStr), sign, pkey, hash)
 }
 
 // RSAVerify RSA 验证
