@@ -16,7 +16,7 @@ type AlipayOfflineMarketReportErrorCreateRequest struct {
 
 // GetAPImethodName GetAPImethodName
 func (requ *AlipayOfflineMarketReportErrorCreateRequest) GetAPImethodName() string {
-	return "alipay.user.info.auth"
+	return "alipay.offline.market.reporterror.create"
 }
 
 // IsNeedEncrypt IsNeedEncrypt

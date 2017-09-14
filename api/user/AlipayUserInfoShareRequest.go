@@ -15,7 +15,7 @@ type AlipayUserInfoShareRequest struct {
 
 // GetAPImethodName GetAPImethodName
 func (requ *AlipayUserInfoShareRequest) GetAPImethodName() string {
-	return "alipay.user.info.auth"
+	return "alipay.user.info.share"
 }
 
 // IsNeedEncrypt IsNeedEncrypt
