@@ -419,14 +419,14 @@ func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string) (str
 	requestHolder.ProtocalMustParams = utils.NewAlipayHashMap()
 	requestHolder.ApplicationParams = utils.NewAlipayHashMap()
 
-	requestHolder.ProtocalMustParams.Put("apiname", "com.alipay.account.auth")
-	requestHolder.ProtocalMustParams.Put("app_name", "mc")
-	requestHolder.ProtocalMustParams.Put("auth_type", "AUTHACCOUNT")
-	requestHolder.ProtocalMustParams.Put("biz_type", "openservice")
-	requestHolder.ProtocalMustParams.Put("method", "alipay.open.auth.sdk.code.get")
-	requestHolder.ProtocalMustParams.Put("product_id", "APP_FAST_LOGIN")
-	requestHolder.ProtocalMustParams.Put("scope", "kuaijie")
-	requestHolder.ProtocalMustParams.Put("target_id", strconv.FormatInt(time.Now().UnixNano(), 10))
+	requestHolder.ProtocalMustParams.Put("apiname", "com.alipay.account.auth")                      //固定值
+	requestHolder.ProtocalMustParams.Put("method", "alipay.open.auth.sdk.code.get")                 //固定值
+	requestHolder.ProtocalMustParams.Put("app_name", "mc")                                          //调用方app标识 ，mc代表外部商户。
+	requestHolder.ProtocalMustParams.Put("auth_type", "AUTHACCOUNT")                                //授权类型 AUTHACCOUNT:授权 LOGIN:登录
+	requestHolder.ProtocalMustParams.Put("biz_type", "openservice")                                 //调用业务类型，openservice代表开放基础服务
+	requestHolder.ProtocalMustParams.Put("product_id", "APP_FAST_LOGIN")                            //WAP_FAST_LOGIN
+	requestHolder.ProtocalMustParams.Put("scope", "kuaijie")                                        //oauth里的授权范围，PD配置,默认为kuaijie
+	requestHolder.ProtocalMustParams.Put("target_id", strconv.FormatInt(time.Now().UnixNano(), 10)) //商户请求id需要为unique,回调使用
 
 	requestHolder.ProtocalMustParams.Put("app_id", appID)
 	requestHolder.ProtocalMustParams.Put("pid", pid)
