@@ -95,7 +95,13 @@ func RSASign(origData string, privateKey *rsa.PrivateKey, hash crypto.Hash) (str
 
 // SyncVerifySign 同步返回验签
 func SyncVerifySign(body, sign string, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
-	return RSAVerify(JSONUnescapeString(body), sign, alipayPublicKey, hash)
+	b, e := RSAVerify(body, sign, alipayPublicKey, hash)
+	if e == rsa.ErrVerification {
+		//see https://docs.open.alipay.com/200/105351
+		//验签不通过时将正斜杠转义一次后再做一次验签。
+		return RSAVerify(JSONUnescapeString(body), sign, alipayPublicKey, hash)
+	}
+	return b, e
 }
 
 // AsyncVerifySign 异步返回验签
