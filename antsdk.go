@@ -452,6 +452,7 @@ func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string) (str
 }
 
 // GetNotify 解析异步通知,小提示:body需要使用http.Request.ParseForm() and http.Request.Form.Encode()获得
+// 确认请回复HTTP 200 OK   返回success 才算确认
 func GetNotify(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte) (*AlipayNotify, error) {
 	var n AlipayNotify
 	ok, err := utils.AsyncVerifySign(body, alipayPublicKeyRSA, alipayPublicKeyRSA2, &n)
