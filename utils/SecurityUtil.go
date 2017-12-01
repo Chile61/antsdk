@@ -4,13 +4,11 @@ import (
 	"crypto"
 	"crypto/rsa"
 	"crypto/x509"
-	"encoding/asn1"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"io"
 	"io/ioutil"
-	"math/big"
 	"net/url"
 	"os"
 	"sort"
@@ -117,7 +115,7 @@ func SyncVerifySign(body, sign string, alipayPublicKey []byte, hash crypto.Hash,
 }
 
 // AsyncVerifySign 异步返回验签
-func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte, val interface{}, isPKCS1 bool) (bool, error) {
+func AsyncVerifySign(body string, alipayPublicKeyRSA []byte, val interface{}, isPKCS1 bool) (bool, error) {
 	data, err := url.ParseQuery(body)
 	if err != nil {
 		return false, err
@@ -142,7 +140,7 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 		pkey = alipayPublicKeyRSA
 	case "RSA2":
 		hash = crypto.SHA256
-		pkey = alipayPublicKeyRSA2
+		pkey = alipayPublicKeyRSA
 	default:
 		return false, errors.New("Err sign_type:" + signType)
 	}
@@ -173,34 +171,6 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 	return RSAVerify(JSONUnescapeString(signStr), sign, pkey, hash, isPKCS1)
 }
 
-type pkcs1PublicKey struct {
-	N *big.Int // modulus
-	E int      // public exponent
-}
-
-func ParsePKCS1PublicKey(der []byte) (interface{}, error) {
-	var pub pkcs1PublicKey
-	rest, err := asn1.Unmarshal(der, &pub)
-	if err != nil {
-		return nil, err
-	}
-	if len(rest) > 0 {
-		return nil, asn1.SyntaxError{Msg: "trailing data"}
-	}
-
-	if pub.N.Sign() <= 0 || pub.E <= 0 {
-		return nil, errors.New("x509: public key contains zero or negative value")
-	}
-	if pub.E > 1<<31-1 {
-		return nil, errors.New("x509: public key contains large public exponent")
-	}
-
-	return &rsa.PublicKey{
-		E: pub.E,
-		N: pub.N,
-	}, nil
-}
-
 // RSAVerify RSA 验证
 func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash, isPKCS1 bool) (bool, error) {
 
@@ -215,7 +185,7 @@ func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash, isPKCS
 	var pub interface{}
 
 	if isPKCS1 {
-		pub, err = ParsePKCS1PublicKey(block)
+		pub, err = x509.ParsePKIXPublicKey(block)
 
 	} else {
 		pub, err = x509.ParsePKIXPublicKey(block)
