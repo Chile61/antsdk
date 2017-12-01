@@ -10,7 +10,7 @@ import (
 
 func Test3(t *testing.T) {
 
-	client := NewDefaultClient(ConstProdGateway, "appid", "private", "public", ConstSignTypeRSA)
+	client := NewDefaultClient(ConstProdGateway, "appid", "private", "public", ConstSignTypeRSA, false)
 
 	request := &util.AlipayUserInfoAuthRequest{}
 

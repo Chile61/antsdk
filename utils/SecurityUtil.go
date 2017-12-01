@@ -4,11 +4,13 @@ import (
 	"crypto"
 	"crypto/rsa"
 	"crypto/x509"
+	"encoding/asn1"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"io"
 	"io/ioutil"
+	"math/big"
 	"net/url"
 	"os"
 	"sort"
@@ -104,18 +106,18 @@ func RSASign(origData string, privateKey *rsa.PrivateKey, hash crypto.Hash) (str
 }
 
 // SyncVerifySign 同步返回验签
-func SyncVerifySign(body, sign string, alipayPublicKey []byte, hash crypto.Hash) (bool, error) {
-	b, e := RSAVerify(body, sign, alipayPublicKey, hash)
+func SyncVerifySign(body, sign string, alipayPublicKey []byte, hash crypto.Hash, isPKCS1 bool) (bool, error) {
+	b, e := RSAVerify(body, sign, alipayPublicKey, hash, isPKCS1)
 	if e == rsa.ErrVerification {
 		//see https://docs.open.alipay.com/200/105351
 		//验签不通过时将正斜杠转义一次后再做一次验签。
-		return RSAVerify(JSONUnescapeString(body), sign, alipayPublicKey, hash)
+		return RSAVerify(JSONUnescapeString(body), sign, alipayPublicKey, hash, isPKCS1)
 	}
 	return b, e
 }
 
 // AsyncVerifySign 异步返回验签
-func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte, val interface{}) (bool, error) {
+func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte, val interface{}, isPKCS1 bool) (bool, error) {
 	data, err := url.ParseQuery(body)
 	if err != nil {
 		return false, err
@@ -168,11 +170,39 @@ func AsyncVerifySign(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte
 	//获取要进行计算哈希的sign string
 	signStr := GetSignStr(m)
 
-	return RSAVerify(JSONUnescapeString(signStr), sign, pkey, hash)
+	return RSAVerify(JSONUnescapeString(signStr), sign, pkey, hash, isPKCS1)
+}
+
+type pkcs1PublicKey struct {
+	N *big.Int // modulus
+	E int      // public exponent
+}
+
+func ParsePKCS1PublicKey(der []byte) (interface{}, error) {
+	var pub pkcs1PublicKey
+	rest, err := asn1.Unmarshal(der, &pub)
+	if err != nil {
+		return nil, err
+	}
+	if len(rest) > 0 {
+		return nil, asn1.SyntaxError{Msg: "trailing data"}
+	}
+
+	if pub.N.Sign() <= 0 || pub.E <= 0 {
+		return nil, errors.New("x509: public key contains zero or negative value")
+	}
+	if pub.E > 1<<31-1 {
+		return nil, errors.New("x509: public key contains large public exponent")
+	}
+
+	return &rsa.PublicKey{
+		E: pub.E,
+		N: pub.N,
+	}, nil
 }
 
 // RSAVerify RSA 验证
-func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash) (bool, error) {
+func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash, isPKCS1 bool) (bool, error) {
 
 	// 加载RSA的公钥
 
@@ -182,10 +212,19 @@ func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash) (bool,
 		return false, err
 	}
 
-	pub, err := x509.ParsePKIXPublicKey(block)
+	var pub interface{}
+
+	if isPKCS1 {
+		pub, err = ParsePKCS1PublicKey(block)
+
+	} else {
+		pub, err = x509.ParsePKIXPublicKey(block)
+	}
+
 	if err != nil {
 		return false, err
 	}
+
 	rsaPub, ok := pub.(*rsa.PublicKey)
 	if !ok {
 		return false, errors.New("err publickey")

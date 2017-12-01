@@ -208,7 +208,7 @@ func (c *Client) Execute(request api.IAlipayRequest, response api.IAlipayRespons
 	///////////////////////////////////////////////////////
 
 	// 验证签名
-	isOk, err := utils.SyncVerifySign(result, sign, []byte(c.alipayPublicPKCS8B64), c.hash)
+	isOk, err := utils.SyncVerifySign(result, sign, []byte(c.alipayPublicPKCS8B64), c.hash, c.isPCKS1)
 	if err != nil {
 		return err
 	}
@@ -458,9 +458,9 @@ func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string, isPC
 
 // GetNotify 解析异步通知,小提示:body需要使用http.Request.ParseForm() and http.Request.Form.Encode()获得
 // 确认请回复HTTP 200 OK   返回success 才算确认
-func GetNotify(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte) (*AlipayNotify, error) {
+func GetNotify(body string, alipayPublicKeyRSA, alipayPublicKeyRSA2 []byte, isPCKS1 bool) (*AlipayNotify, error) {
 	var n AlipayNotify
-	ok, err := utils.AsyncVerifySign(body, alipayPublicKeyRSA, alipayPublicKeyRSA2, &n)
+	ok, err := utils.AsyncVerifySign(body, alipayPublicKeyRSA, alipayPublicKeyRSA2, &n, isPCKS1)
 	if err != nil {
 		return nil, err
 	}
