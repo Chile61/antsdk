@@ -20,7 +20,7 @@ import (
 )
 
 func main() {
-	client := antsdk.NewDefaultClient(antsdk.ConstProdGateway, "商户AppId", "商户密钥", "支付宝公钥", antsdk.ConstSignTypeRSA)
+	client := antsdk.NewDefaultClient(antsdk.ConstProdGateway, "商户AppId", "商户密钥", "支付宝公钥", antsdk.ConstSignTypeRSA, false)
 
 	request := &util.AlipaySystemOauthTokenRequest{}
 

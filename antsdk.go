@@ -81,21 +81,22 @@ type Client struct {
 	charset              string
 	encryptKey           string
 	hash                 crypto.Hash
+	isPCKS1              bool
 }
 
 // NewDefaultClient 创建一个默认的Client，可以构建相关struct后调用Execute执行该功能
-func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64 string, signtype string) *Client {
+func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64 string, signtype string, isPKCS1 bool) *Client {
 
 	var hash crypto.Hash
 
 	switch signtype {
-	case "RSA":
+	case ConstSignTypeRSA:
 		hash = crypto.SHA1
-	case "RSA2":
+	case ConstSignTypeRSA2:
 		hash = crypto.SHA256
 	default:
 		hash = crypto.SHA256
-		signtype = "RSA2"
+		signtype = ConstSignTypeRSA2
 	}
 
 	return &Client{
@@ -108,23 +109,24 @@ func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64
 		encryptType:          constEncryptTypeAES,
 		charset:              constCharsetUTF8,
 		hash:                 hash,
+		isPCKS1:              isPKCS1,
 	}
 
 }
 
 // NewGetStringClient 创建一个只能调用GetString方法的Client
-func NewGetStringClient(appID, appPrivatePKCS8B64, signtype string) *Client {
+func NewGetStringClient(appID, appPrivatePKCS8B64, signtype string, isPKCS1 bool) *Client {
 
 	var hash crypto.Hash
 
 	switch signtype {
-	case "RSA":
+	case ConstSignTypeRSA:
 		hash = crypto.SHA1
-	case "RSA2":
+	case ConstSignTypeRSA2:
 		hash = crypto.SHA256
 	default:
 		hash = crypto.SHA256
-		signtype = "RSA2"
+		signtype = ConstSignTypeRSA2
 	}
 
 	return &Client{
@@ -135,6 +137,7 @@ func NewGetStringClient(appID, appPrivatePKCS8B64, signtype string) *Client {
 		encryptType:        constEncryptTypeAES,
 		charset:            constCharsetUTF8,
 		hash:               hash,
+		isPCKS1:            isPKCS1,
 	}
 
 }
@@ -246,7 +249,9 @@ func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, e
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	return ioutil.ReadAll(resp.Body)
 }
@@ -390,7 +395,7 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.Re
 
 	signMap := utils.GetSignMap(requestHolder)
 
-	sign, err := utils.Sign(signMap, []byte(c.appPrivatePKCS8B64), c.hash)
+	sign, err := utils.Sign(signMap, []byte(c.appPrivatePKCS8B64), c.hash, c.isPCKS1)
 	if err != nil {
 		return nil, err
 	}
@@ -400,18 +405,18 @@ func (c *Client) getRequestHolderWithSign(request api.IAlipayRequest) (*utils.Re
 }
 
 // GetClientFastLoginStr 生成客户端快速登陆字符串
-func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string) (string, error) {
+func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string, isPCKS1 bool) (string, error) {
 
 	var hash crypto.Hash
 
 	switch signtype {
-	case "RSA":
+	case ConstSignTypeRSA:
 		hash = crypto.SHA1
-	case "RSA2":
+	case ConstSignTypeRSA2:
 		hash = crypto.SHA256
 	default:
 		hash = crypto.SHA256
-		signtype = "RSA2"
+		signtype = ConstSignTypeRSA2
 	}
 
 	requestHolder := utils.NewRequestParametersHolder()
@@ -433,7 +438,7 @@ func GetClientFastLoginStr(appID, appPrivatePKCS8B64, signtype, pid string) (str
 
 	signMap := utils.GetSignMap(requestHolder)
 
-	sign, err := utils.Sign(signMap, []byte(appPrivatePKCS8B64), hash)
+	sign, err := utils.Sign(signMap, []byte(appPrivatePKCS8B64), hash, isPCKS1)
 	if err != nil {
 		return "", errors.New("Sign fail")
 	}

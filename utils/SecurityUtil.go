@@ -58,7 +58,7 @@ func GetSignStr(m map[string]string) string {
 }
 
 // Sign 签名
-func Sign(mReq map[string]string, privatePKCS8B64 []byte, hash crypto.Hash) (string, error) {
+func Sign(mReq map[string]string, privatePKCS8B64 []byte, hash crypto.Hash, isPKCS1 bool) (string, error) {
 
 	// 获取待签名参数
 	signStr := GetSignStr(mReq)
@@ -68,12 +68,19 @@ func Sign(mReq map[string]string, privatePKCS8B64 []byte, hash crypto.Hash) (str
 		return "", err
 	}
 
-	prk8, err := x509.ParsePKCS8PrivateKey(block)
+	var prk interface{}
+
+	if isPKCS1 {
+		prk, err = x509.ParsePKCS1PrivateKey(block)
+	} else {
+		prk, err = x509.ParsePKCS8PrivateKey(block)
+	}
+
 	if err != nil {
 		return "", err
 	}
 
-	pKey := prk8.(*rsa.PrivateKey)
+	pKey := prk.(*rsa.PrivateKey)
 
 	return RSASign(signStr, pKey, hash)
 }
@@ -81,7 +88,10 @@ func Sign(mReq map[string]string, privatePKCS8B64 []byte, hash crypto.Hash) (str
 // RSASign RSA签名
 func RSASign(origData string, privateKey *rsa.PrivateKey, hash crypto.Hash) (string, error) {
 	h := hash.New()
-	h.Write([]byte(origData))
+	_, err := h.Write([]byte(origData))
+	if err != nil {
+		return "", err
+	}
 	digest := h.Sum(nil)
 
 	s, err := rsa.SignPKCS1v15(nil, privateKey, hash, []byte(digest))
@@ -183,7 +193,10 @@ func RSAVerify(src, sign string, publicPKCS8B64 []byte, hash crypto.Hash) (bool,
 
 	// 计算代签名字串的哈希
 	t := hash.New()
-	io.WriteString(t, src)
+	_, err = io.WriteString(t, src)
+	if err != nil {
+		return false, err
+	}
 	digest := t.Sum(nil)
 
 	// base64 decode,必须步骤，支付宝对返回的签名做过base64 encode必须要反过来decode才能通过验证
@@ -209,7 +222,12 @@ func ReadPemFile(path string) []byte {
 	if err != nil {
 		panic(err)
 	}
-	defer fi.Close()
+
 	fd, err := ioutil.ReadAll(fi)
+	if err != nil {
+		panic(err)
+	}
+
+	_ = fi.Close()
 	return fd
 }
