@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -40,6 +41,8 @@ const (
 	constEncryptTypeAES = "AES"
 	// constVersionVal 当前API版本
 	constVersionVal = "1.0"
+	// constDeadline http超时 秒
+	constDeadline = 5
 
 	constSignTypeKey     = "sign_type"
 	constAppIDKey        = "app_id"
@@ -82,6 +85,7 @@ type Client struct {
 	encryptKey           string
 	hash                 crypto.Hash
 	isPCKS1              bool
+	deadline             int64
 }
 
 // NewDefaultClient 创建一个默认的Client，可以构建相关struct后调用Execute执行该功能
@@ -110,6 +114,7 @@ func NewDefaultClient(serverURL, appID, appPrivatePKCS8B64, alipayPublicPKCS8B64
 		charset:              constCharsetUTF8,
 		hash:                 hash,
 		isPCKS1:              isPKCS1,
+		deadline:             constDeadline,
 	}
 
 }
@@ -241,7 +246,22 @@ func (c *Client) postRequest(reqURL string, params map[string]string) ([]byte, e
 	}
 
 	reqParams := ioutil.NopCloser(strings.NewReader(data.Encode()))
-	var client http.Client
+	client := http.Client{
+		Transport: &http.Transport{
+			Dial: func(netw, addr string) (net.Conn, error) {
+				deadline := time.Now().Add(time.Duration(c.deadline) * time.Second)
+				c, err := net.DialTimeout(netw, addr, time.Duration(c.deadline)*time.Second)
+				if err != nil {
+					return nil, err
+				}
+				err = c.SetDeadline(deadline)
+				if err != nil {
+					return nil, err
+				}
+				return c, nil
+			},
+		},
+	}
 	req, _ := http.NewRequest("POST", reqURL, reqParams)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded;charset="+c.charset)
 
